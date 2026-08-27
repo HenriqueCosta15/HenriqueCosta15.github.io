@@ -6,8 +6,6 @@
   <meta name="description" content="Honest, in-depth reviews and comparisons of the best AI tools. Find the right AI for writing, coding, business, and more." />
   <title>AI Tool Pick — Find the Best AI Tool for Your Needs</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <meta name='impact-site-verification' value='a79dcd13-c8b0-4657-8575-924eeb769aa5' />
 </head>
 <body>
@@ -187,11 +185,71 @@
       <p>We may earn commissions from links on this site. This doesn't affect our reviews — we only recommend tools we've actually tested.</p>
       <div class="footer-links">
         <a href="/about.html">About</a>
+        <a href="/imprint.html">Imprint</a>
         <a href="/privacy.html">Privacy Policy</a>
+        <a href="/cookie-policy.html">Cookie Policy</a>
+        <a href="/terms.html">Terms of Use</a>
         <a href="/disclaimer.html">Affiliate Disclaimer</a>
+        <a href="#" onclick="window.showCookieConsent && window.showCookieConsent();return false;" style="color:#64748b;">Manage Cookies</a>
       </div>
     </div>
   </footer>
+
+  <!-- GDPR COOKIE CONSENT BANNER -->
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);padding:20px 24px;z-index:9999;box-shadow:0 -4px 24px rgba(0,0,0,0.4);">
+    <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div style="flex:1;min-width:260px;">
+        <p style="color:#e2e8f0;font-size:0.88rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
+        <p style="color:#94a3b8;font-size:0.82rem;margin:0;">We use analytics and affiliate tracking cookies to improve our site and earn commissions. See our <a href="/cookie-policy.html" style="color:#818cf8;">Cookie Policy</a> and <a href="/privacy.html" style="color:#818cf8;">Privacy Policy</a>.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#94a3b8;font-size:0.85rem;font-weight:600;padding:10px 20px;border-radius:8px;cursor:pointer;">Decline</button>
+        <button onclick="acceptCookies()" style="background:linear-gradient(135deg,#6366f1,#a855f7);border:none;color:#fff;font-size:0.85rem;font-weight:700;padding:10px 20px;border-radius:8px;cursor:pointer;">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cookie consent logic
+    function getCookie(name) {
+      var value = "; " + document.cookie;
+      var parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    function setCookie(name, value, days) {
+      var d = new Date();
+      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
+    }
+    function acceptCookies() {
+      setCookie('cookie_consent', 'accepted', 365);
+      document.getElementById('cookie-banner').style.display = 'none';
+      // Load Google Analytics after consent
+      loadAnalytics();
+    }
+    function declineCookies() {
+      setCookie('cookie_consent', 'declined', 365);
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    function loadAnalytics() {
+      // Add your Google Analytics tag here when you have one
+      // var s = document.createElement('script');
+      // s.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
+      // document.head.appendChild(s);
+    }
+    window.showCookieConsent = function() {
+      document.getElementById('cookie-banner').style.display = 'block';
+    };
+    // Show banner only if consent not yet given
+    window.addEventListener('DOMContentLoaded', function() {
+      var consent = getCookie('cookie_consent');
+      if (!consent) {
+        document.getElementById('cookie-banner').style.display = 'block';
+      } else if (consent === 'accepted') {
+        loadAnalytics();
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -6,7 +6,6 @@
   <meta name="description" content="In-depth AI tool reviews — we test every major AI tool and give you honest, detailed reviews to help you make the right choice." />
   <title>AI Tool Reviews — Honest, Tested Reviews | AIToolPick</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header class="nav">
@@ -66,6 +65,27 @@
           <div class="card-rating"><span class="stars">★★★★☆</span><span>4.6 / 5</span></div>
           <span class="card-link">Read Review →</span>
         </a>
+        <a href="/reviews/claude.html" class="card">
+          <div class="card-badge">AI Assistant</div>
+          <h3>Claude AI Review</h3>
+          <p>Anthropic's Claude — the most accurate and natural-sounding AI assistant available.</p>
+          <div class="card-rating"><span class="stars">★★★★★</span><span>4.8 / 5</span></div>
+          <span class="card-link">Read Review →</span>
+        </a>
+        <a href="/reviews/frase.html" class="card">
+          <div class="card-badge">SEO</div>
+          <h3>Frase Review</h3>
+          <p>Affordable AI SEO content tool with excellent research and briefing features.</p>
+          <div class="card-rating"><span class="stars">★★★★☆</span><span>4.3 / 5</span></div>
+          <span class="card-link">Read Review →</span>
+        </a>
+        <a href="/reviews/rytr.html" class="card">
+          <div class="card-badge">Writing</div>
+          <h3>Rytr Review</h3>
+          <p>Best free plan in AI writing. Great starting point for beginners.</p>
+          <div class="card-rating"><span class="stars">★★★★☆</span><span>4.0 / 5</span></div>
+          <span class="card-link">Read Review →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -73,8 +93,26 @@
     <div class="container">
       <p class="logo">AI<span>ToolPick</span></p>
       <p>We may earn commissions from links on this site. This doesn't affect our reviews.</p>
-      <div class="footer-links"><a href="/about.html">About</a><a href="/privacy.html">Privacy Policy</a><a href="/disclaimer.html">Affiliate Disclaimer</a></div>
+      <div class="footer-links">
+        <a href="/about.html">About</a>
+        <a href="/imprint.html">Imprint</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/cookie-policy.html">Cookie Policy</a>
+        <a href="/terms.html">Terms of Use</a>
+        <a href="/disclaimer.html">Affiliate Disclaimer</a>
+        <a href="#" onclick="window.showCookieConsent && window.showCookieConsent();return false;" style="color:#64748b;">Manage Cookies</a>
+      </div>
     </div>
   </footer>
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1e1e2e;border-top:1px solid rgba(255,255,255,.1);padding:16px 24px;z-index:9999;display:none;">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <p style="color:#94a3b8;font-size:.85rem;margin:0;">We use analytics cookies to understand how visitors use this site. <a href="/cookie-policy.html" style="color:#818cf8;">Cookie Policy</a></p>
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid rgba(255,255,255,.15);color:#94a3b8;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;">Decline</button>
+        <button onclick="acceptCookies()" style="background:#6366f1;border:none;color:#fff;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;">Accept</button>
+      </div>
+    </div>
+  </div>
+  <script src="/cookie-consent.js"></script>
 </body>
 </html>
