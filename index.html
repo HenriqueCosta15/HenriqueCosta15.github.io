@@ -17,110 +17,198 @@
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
-      <a href="/" class="logo">AI<span>ToolPick</span></a>
+      <a href="/" class="logo">
+        <span class="logo-dot"></span>
+        AIToolPick
+      </a>
       <nav>
         <a href="/reviews.html">Reviews</a>
         <a href="/comparisons.html">Comparisons</a>
         <a href="/best.html">Best Lists</a>
       </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
+  <!-- MOBILE MENU -->
+  <div class="nav-mobile" id="navMobile">
+    <a href="/reviews.html">Reviews <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/comparisons.html">Comparisons <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/best.html">Best Lists <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </div>
+
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <p class="hero-label">Independent AI Tool Reviews</p>
-      <h1>Stop Guessing.<br/>Pick the <span class="highlight">Right AI Tool.</span></h1>
-      <p class="hero-sub">We cut through the hype with honest, in-depth reviews and real comparisons — so you find the tool that actually fits your needs.</p>
-      <a href="/best.html" class="btn-primary">Browse Top Picks</a>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Independent AI Tool Reviews</p>
+      <h1>Stop guessing.<br/><em>Pick the right</em> AI tool.</h1>
+      <p class="hero-sub">Honest, in-depth reviews and real comparisons — so you find the tool that actually fits your needs. No hype, no sponsored rankings.</p>
+      <div class="hero-cta">
+        <a href="/best.html" class="btn-primary">
+          Browse Top Picks
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="/reviews.html" class="btn-ghost">See all reviews</a>
+      </div>
     </div>
   </section>
 
-  <!-- TRUST BAR -->
-  <div class="trust-bar">
+  <!-- STATS BAR -->
+  <div class="stats-bar">
     <div class="container">
-      <div class="trust-items">
-        <span class="trust-item"><span class="ti-icon">✅</span> No sponsored rankings</span>
-        <span class="trust-item"><span class="ti-icon">🔍</span> Tools tested hands-on</span>
-        <span class="trust-item"><span class="ti-icon">💬</span> Plain language, no jargon</span>
-        <span class="trust-item"><span class="ti-icon">🔄</span> Regularly updated</span>
+      <div class="stats-items">
+        <div class="stats-item">
+          <div>
+            <span class="stats-num" data-count="15">15</span>
+            <span class="stats-label">Reviews</span>
+          </div>
+        </div>
+        <div class="stats-item">
+          <div>
+            <span class="stats-num" data-count="7">7</span>
+            <span class="stats-label">Comparisons</span>
+          </div>
+        </div>
+        <div class="stats-item">
+          <div>
+            <span class="stats-num" data-count="8">8</span>
+            <span class="stats-label">Best Lists</span>
+          </div>
+        </div>
+        <div class="stats-item">
+          <div>
+            <span class="stats-num">100%</span>
+            <span class="stats-label">Independent</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- FEATURED REVIEWS -->
+  <!-- REVIEWS -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Top AI Tool Reviews</h2>
-        <p class="section-sub">Detailed breakdowns of pricing, features, and who each tool is actually for</p>
+      <div class="section-header reveal">
+        <div class="section-header-text">
+          <p class="section-label">Reviews</p>
+          <h2 class="section-title">Top AI Tool Reviews</h2>
+          <p class="section-sub">Detailed breakdowns of pricing, features, and who each tool is actually for</p>
+        </div>
+        <a href="/reviews.html" class="link-all">
+          View all
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
       </div>
+
       <div class="card-grid">
 
-        <a href="/reviews/jasper.html" class="card">
-          <div class="card-badge">Writing</div>
-          <h3>Jasper AI Review</h3>
-          <p>The most powerful AI writing assistant for marketers and content teams. Is it worth the price?</p>
-          <div class="card-rating">
-            <span class="stars">★★★★★</span>
-            <span>4.8 / 5</span>
+        <!-- LEAD CARD (spans 2 cols) -->
+        <a href="/reviews/jasper.html" class="card reveal">
+          <div class="card-score-block">
+            <span class="score-big" data-score="4.8">4.8</span>
+            <span class="score-label">out of 5</span>
           </div>
-          <span class="card-link">Read Review →</span>
+          <div class="card-body">
+            <div class="card-top">
+              <div class="card-badge">Writing</div>
+            </div>
+            <h3>Jasper AI</h3>
+            <p>The most powerful AI writing assistant for marketers and content teams — with brand voice, campaigns, and SEO tools built in. Is it worth the premium price?</p>
+            <div class="card-rating">
+              <div class="stars">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="rating-text">4.8 / 5</span>
+            </div>
+            <span class="card-link">Read Review <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </div>
         </a>
 
-        <a href="/reviews/writesonic.html" class="card">
-          <div class="card-badge">Writing</div>
-          <h3>Writesonic Review</h3>
-          <p>Fast, affordable AI writing with built-in SEO features. Best budget pick for content creators.</p>
-          <div class="card-rating">
-            <span class="stars">★★★★☆</span>
-            <span>4.5 / 5</span>
+        <!-- REGULAR CARD -->
+        <a href="/reviews/grammarly.html" class="card reveal">
+          <div class="card-top">
+            <div class="card-badge">Editing</div>
+            <span class="card-score" data-score="4.7">4.7</span>
           </div>
-          <span class="card-link">Read Review →</span>
-        </a>
-
-        <a href="/reviews/grammarly.html" class="card">
-          <div class="card-badge">Editing</div>
-          <h3>Grammarly AI Review</h3>
+          <h3>Grammarly AI</h3>
           <p>More than just grammar. Grammarly's AI now rewrites, rephrases, and improves your entire tone.</p>
           <div class="card-rating">
-            <span class="stars">★★★★★</span>
-            <span>4.7 / 5</span>
+            <div class="stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="rating-text">4.7 / 5</span>
           </div>
-          <span class="card-link">Read Review →</span>
+          <span class="card-link">Read Review <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
         </a>
 
-        <a href="/reviews/elevenlabs.html" class="card">
-          <div class="card-badge">Voice</div>
-          <h3>ElevenLabs Review</h3>
-          <p>The gold standard for AI voice generation. Realistic voices for podcasts, videos, and more.</p>
+        <a href="/reviews/writesonic.html" class="card reveal">
+          <div class="card-top">
+            <div class="card-badge">Writing</div>
+            <span class="card-score" data-score="4.5">4.5</span>
+          </div>
+          <h3>Writesonic</h3>
+          <p>Fast, affordable AI writing with built-in SEO features. Best budget pick for content creators.</p>
           <div class="card-rating">
-            <span class="stars">★★★★★</span>
-            <span>4.9 / 5</span>
+            <div class="stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="empty"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="rating-text">4.5 / 5</span>
           </div>
-          <span class="card-link">Read Review →</span>
+          <span class="card-link">Read Review <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
         </a>
 
-        <a href="/reviews/surfer-seo.html" class="card">
-          <div class="card-badge">SEO</div>
-          <h3>Surfer SEO Review</h3>
+        <a href="/reviews/surfer-seo.html" class="card reveal">
+          <div class="card-top">
+            <div class="card-badge">SEO</div>
+            <span class="card-score" data-score="4.6">4.6</span>
+          </div>
+          <h3>Surfer SEO</h3>
           <p>AI-powered SEO optimization that tells you exactly what to write to rank on Google.</p>
           <div class="card-rating">
-            <span class="stars">★★★★☆</span>
-            <span>4.6 / 5</span>
+            <div class="stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="empty"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="rating-text">4.6 / 5</span>
           </div>
-          <span class="card-link">Read Review →</span>
+          <span class="card-link">Read Review <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
         </a>
 
-        <a href="/reviews/copy-ai.html" class="card">
-          <div class="card-badge">Copywriting</div>
-          <h3>Copy.ai Review</h3>
+        <a href="/reviews/copy-ai.html" class="card reveal">
+          <div class="card-top">
+            <div class="card-badge">Copywriting</div>
+            <span class="card-score" data-score="4.4">4.4</span>
+          </div>
+          <h3>Copy.ai</h3>
           <p>Workflow-based AI for marketing copy. Great for teams that need to produce content at scale.</p>
           <div class="card-rating">
-            <span class="stars">★★★★☆</span>
-            <span>4.4 / 5</span>
+            <div class="stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="empty"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="rating-text">4.4 / 5</span>
           </div>
-          <span class="card-link">Read Review →</span>
+          <span class="card-link">Read Review <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
         </a>
 
       </div>
@@ -130,58 +218,44 @@
   <!-- BEST LISTS -->
   <section class="section section-alt">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Best AI Tools By Category</h2>
-        <p class="section-sub">Curated lists for every use case — updated regularly</p>
+      <div class="section-header reveal">
+        <div class="section-header-text">
+          <p class="section-label">Best Lists</p>
+          <h2 class="section-title">Best AI Tools By Category</h2>
+          <p class="section-sub">Curated picks for every use case — updated regularly</p>
+        </div>
+        <a href="/best.html" class="link-all">View all <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
       <div class="list-grid">
-        <a href="/best/ai-writing-tools.html" class="list-card">
-          <span class="list-icon">✍️</span>
-          <div>
-            <strong>Best AI Writing Tools</strong>
-            <p>For bloggers, marketers & content teams</p>
-          </div>
-          <span class="arrow">→</span>
+        <a href="/best/ai-writing-tools.html" class="list-card reveal">
+          <div class="list-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div><strong>Best AI Writing Tools</strong><p>For bloggers, marketers & content teams</p></div>
+          <svg class="list-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="/best/ai-for-students.html" class="list-card">
-          <span class="list-icon">🎓</span>
-          <div>
-            <strong>Best AI Tools for Students</strong>
-            <p>Research, essays, studying & more</p>
-          </div>
-          <span class="arrow">→</span>
+        <a href="/best/ai-for-students.html" class="list-card reveal">
+          <div class="list-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div><strong>Best AI Tools for Students</strong><p>Research, essays, studying & more</p></div>
+          <svg class="list-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="/best/ai-for-business.html" class="list-card">
-          <span class="list-icon">💼</span>
-          <div>
-            <strong>Best AI Tools for Business</strong>
-            <p>Automate, scale, and save time</p>
-          </div>
-          <span class="arrow">→</span>
+        <a href="/best/ai-for-business.html" class="list-card reveal">
+          <div class="list-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div><strong>Best AI Tools for Business</strong><p>Automate, scale, and save time</p></div>
+          <svg class="list-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="/best/free-ai-tools.html" class="list-card">
-          <span class="list-icon">🆓</span>
-          <div>
-            <strong>Best Free AI Tools</strong>
-            <p>Top picks that cost nothing</p>
-          </div>
-          <span class="arrow">→</span>
+        <a href="/best/free-ai-tools.html" class="list-card reveal">
+          <div class="list-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div><strong>Best Free AI Tools</strong><p>Top picks that cost nothing</p></div>
+          <svg class="list-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="/best/ai-video-tools.html" class="list-card">
-          <span class="list-icon">🎬</span>
-          <div>
-            <strong>Best AI Video Tools</strong>
-            <p>Generate, edit, and enhance video with AI</p>
-          </div>
-          <span class="arrow">→</span>
+        <a href="/best/ai-video-tools.html" class="list-card reveal">
+          <div class="list-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+          <div><strong>Best AI Video Tools</strong><p>Generate, edit, and enhance video with AI</p></div>
+          <svg class="list-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="/best/ai-image-generators.html" class="list-card">
-          <span class="list-icon">🎨</span>
-          <div>
-            <strong>Best AI Image Generators</strong>
-            <p>Midjourney, DALL-E, and beyond</p>
-          </div>
-          <span class="arrow">→</span>
+        <a href="/best/ai-image-generators.html" class="list-card reveal">
+          <div class="list-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <div><strong>Best AI Image Generators</strong><p>Midjourney, DALL-E, and beyond</p></div>
+          <svg class="list-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
     </div>
@@ -190,95 +264,162 @@
   <!-- COMPARISONS -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">AI Tool Comparisons</h2>
-        <p class="section-sub">Side-by-side breakdowns so you can choose with confidence</p>
+      <div class="section-header reveal">
+        <div class="section-header-text">
+          <p class="section-label">Comparisons</p>
+          <h2 class="section-title">AI Tool Comparisons</h2>
+          <p class="section-sub">Side-by-side breakdowns so you can choose with confidence</p>
+        </div>
+        <a href="/comparisons.html" class="link-all">View all <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
       <div class="comp-grid">
-        <a href="/comparisons/claude-vs-chatgpt.html" class="comp-card">Claude vs ChatGPT →</a>
-        <a href="/comparisons/jasper-vs-writesonic.html" class="comp-card">Jasper vs Writesonic →</a>
-        <a href="/comparisons/chatgpt-vs-gemini.html" class="comp-card">ChatGPT vs Gemini →</a>
-        <a href="/comparisons/grammarly-vs-quillbot.html" class="comp-card">Grammarly vs QuillBot →</a>
+        <a href="/comparisons/claude-vs-chatgpt.html" class="comp-card reveal">Claude <span class="comp-vs">vs</span> ChatGPT <svg class="comp-card-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="/comparisons/jasper-vs-writesonic.html" class="comp-card reveal">Jasper <span class="comp-vs">vs</span> Writesonic <svg class="comp-card-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="/comparisons/chatgpt-vs-gemini.html" class="comp-card reveal">ChatGPT <span class="comp-vs">vs</span> Gemini <svg class="comp-card-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="/comparisons/grammarly-vs-quillbot.html" class="comp-card reveal">Grammarly <span class="comp-vs">vs</span> QuillBot <svg class="comp-card-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
     </div>
   </section>
 
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner reveal">
+        <div>
+          <h2>Not sure where to start?</h2>
+          <p>Browse our curated best lists — we've done the research so you don't have to spend hours comparing tools.</p>
+        </div>
+        <div class="cta-band-btns">
+          <a href="/best.html" class="btn-primary">Browse Best Lists <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="/comparisons.html" class="btn-secondary">Compare Tools</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p class="logo">AI<span>ToolPick</span></p>
-      <p>We may earn commissions from links on this site. This doesn't affect our reviews — we only recommend tools we've actually tested.</p>
-      <div class="footer-links">
-        <a href="/about.html">About</a>
-        <a href="/imprint.html">Imprint</a>
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/cookie-policy.html">Cookie Policy</a>
-        <a href="/terms.html">Terms of Use</a>
-        <a href="/disclaimer.html">Affiliate Disclaimer</a>
-        <a href="#" onclick="window.showCookieConsent && window.showCookieConsent();return false;" style="color:#64748b;">Manage Cookies</a>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-dot"></span>AIToolPick</a>
+          <p>We may earn commissions from links on this site. This doesn't affect our reviews — we only recommend tools we've actually tested.</p>
+          <div class="footer-badges">
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> No sponsored rankings</span>
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Hands-on tested</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Content</h4>
+          <a href="/reviews.html">All Reviews</a>
+          <a href="/comparisons.html">Comparisons</a>
+          <a href="/best.html">Best Lists</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/about.html">About</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/disclaimer.html">Affiliate Disclaimer</a>
+          <a href="/terms.html">Terms of Use</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 AIToolPick. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/imprint.html">Imprint</a>
+          <a href="/cookie-policy.html">Cookie Policy</a>
+          <a href="#" onclick="window.showCookieConsent&&window.showCookieConsent();return false;">Manage Cookies</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- GDPR COOKIE CONSENT BANNER -->
-  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);padding:20px 24px;z-index:9999;box-shadow:0 -4px 24px rgba(0,0,0,0.4);">
-    <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  <!-- COOKIE BANNER -->
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161616;border-top:1px solid #252525;padding:20px 24px;z-index:9999;">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
       <div style="flex:1;min-width:260px;">
-        <p style="color:#e2e8f0;font-size:0.88rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
-        <p style="color:#94a3b8;font-size:0.82rem;margin:0;">We use analytics and affiliate tracking cookies to improve our site and earn commissions. See our <a href="/cookie-policy.html" style="color:#818cf8;">Cookie Policy</a> and <a href="/privacy.html" style="color:#818cf8;">Privacy Policy</a>.</p>
+        <p style="color:#F2F2F2;font-size:0.875rem;margin:0 0 4px;font-weight:600;font-family:'Space Grotesk',sans-serif;">We use cookies</p>
+        <p style="color:#7A7A7A;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#E8437A;">Cookie Policy</a> and <a href="/privacy.html" style="color:#E8437A;">Privacy Policy</a>.</p>
       </div>
-      <div style="display:flex;gap:12px;flex-shrink:0;">
-        <button onclick="declineCookies()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#94a3b8;font-size:0.85rem;font-weight:600;padding:10px 20px;border-radius:8px;cursor:pointer;">Decline</button>
-        <button onclick="acceptCookies()" style="background:linear-gradient(135deg,#6366f1,#a855f7);border:none;color:#fff;font-size:0.85rem;font-weight:700;padding:10px 20px;border-radius:8px;cursor:pointer;">Accept All</button>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid #252525;color:#7A7A7A;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:5px;cursor:pointer;">Decline</button>
+        <button onclick="acceptCookies()" style="background:#E8437A;border:none;color:#fff;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:5px;cursor:pointer;">Accept All</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Cookie consent logic
-    function getCookie(name) {
-      var value = "; " + document.cookie;
-      var parts = value.split("; " + name + "=");
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    }
-    function setCookie(name, value, days) {
-      var d = new Date();
-      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-      document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
-    }
-    function acceptCookies() {
-      setCookie('cookie_consent', 'accepted', 365);
-      document.getElementById('cookie-banner').style.display = 'none';
-      // Load Google Analytics after consent
-      loadAnalytics();
-    }
-    function declineCookies() {
-      setCookie('cookie_consent', 'declined', 365);
-      document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function loadAnalytics() {
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-QCSWNX897K';
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', 'G-QCSWNX897K');
-    }
-    window.showCookieConsent = function() {
-      document.getElementById('cookie-banner').style.display = 'block';
-    };
-    // Show banner only if consent not yet given
-    window.addEventListener('DOMContentLoaded', function() {
-      var consent = getCookie('cookie_consent');
-      if (!consent) {
-        document.getElementById('cookie-banner').style.display = 'block';
-      } else if (consent === 'accepted') {
-        loadAnalytics();
-      }
+    /* === MOBILE NAV === */
+    const navToggle = document.getElementById('navToggle');
+    const navMobile = document.getElementById('navMobile');
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
     });
+    navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navMobile.classList.remove('open');
+      navToggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    /* === SCROLL REVEAL === */
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* === COUNT-UP: scores === */
+    function countUp(el, target, duration) {
+      const start = performance.now();
+      (function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * e).toFixed(1);
+        if (p < 1) requestAnimationFrame(step);
+      })(start);
+    }
+    const scoreObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const t = parseFloat(e.target.dataset.score);
+          if (!isNaN(t)) { e.target.textContent = '0.0'; setTimeout(() => countUp(e.target, t, 900), 120); }
+          scoreObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('[data-score]').forEach(el => scoreObs.observe(el));
+
+    /* === COUNT-UP: stats === */
+    function countInt(el, target, duration) {
+      const start = performance.now();
+      (function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      })(start);
+    }
+    const statObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const t = parseInt(e.target.dataset.count);
+          if (!isNaN(t)) { e.target.textContent = '0'; setTimeout(() => countInt(e.target, t, 1100), 80); }
+          statObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stats-num[data-count]').forEach(el => statObs.observe(el));
+
+    /* === COOKIE CONSENT === */
+    function getCookie(n){var v='; '+document.cookie,p=v.split('; '+n+'=');if(p.length===2)return p.pop().split(';').shift();}
+    function setCookie(n,v,d){var x=new Date();x.setTime(x.getTime()+(d*86400000));document.cookie=n+'='+v+';expires='+x.toUTCString()+';path=/;SameSite=Lax';}
+    function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookie-banner').style.display='none';loadAnalytics();}
+    function declineCookies(){setCookie('cookie_consent','declined',365);document.getElementById('cookie-banner').style.display='none';}
+    function loadAnalytics(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-QCSWNX897K';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-QCSWNX897K');}
+    window.showCookieConsent=function(){document.getElementById('cookie-banner').style.display='block';};
+    window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
   </script>
 
 </body>
