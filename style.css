@@ -100,6 +100,11 @@ nav a:hover {
   background: var(--color-surface-2);
 }
 
+nav a.nav-active {
+  color: var(--color-text);
+  background: var(--color-surface-2);
+}
+
 /* === MOBILE NAV === */
 .nav-toggle {
   display: none;
@@ -688,6 +693,7 @@ nav a:hover {
 .card:hover {
   border-color: #3A3A3A;
   transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232,67,122,0.07);
 }
 
 .card-featured-badge {
@@ -806,6 +812,13 @@ nav a:hover {
   border-color: #3A3A3A;
   background: var(--color-surface-2);
 }
+
+.list-card:hover .list-icon {
+  background: rgba(232,67,122,0.1);
+  border-color: rgba(232,67,122,0.25);
+}
+
+.list-card:hover .list-icon svg { color: var(--color-accent); }
 
 .list-icon {
   width: 36px;
@@ -1062,6 +1075,38 @@ nav a:hover {
   .card-score-block .score-big { font-size: 1.5rem; }
   .trust-items { gap: 16px; }
   .trust-item:nth-child(n+3) { display: none; }
+}
+
+/* === BACK TO TOP === */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 40px;
+  height: 40px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s, background 0.15s, border-color 0.15s;
+  z-index: 90;
+  color: var(--color-text-muted);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--color-surface-3);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 /* === REDUCED MOTION === */
