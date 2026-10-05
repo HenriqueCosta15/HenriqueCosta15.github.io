@@ -1,0 +1,22 @@
+# MyAIToolPick
+
+> Independent, hands-on reviews and comparisons of AI tools. No sponsored rankings.
+
+MyAIToolPick helps people find the right AI tool for writing, coding, business, content creation, and more. Every tool is reviewed through real testing — not press releases or summaries.
+
+## Content
+
+- Reviews: https://myaitoolpick.com/reviews.html
+- Comparisons: https://myaitoolpick.com/comparisons.html
+- Best Lists: https://myaitoolpick.com/best.html
+- Sitemap: https://myaitoolpick.com/sitemap.xml
+
+## Topics Covered
+
+AI writing tools, AI chatbots, AI image generators, AI voice generators, AI video tools, AI coding assistants, AI SEO tools, AI productivity tools.
+
+## Notes
+
+- The site earns revenue through affiliate links. Rankings are editorially independent.
+- Content is updated regularly as AI tools evolve.
+- Contact: hello@aitoolpick.com
