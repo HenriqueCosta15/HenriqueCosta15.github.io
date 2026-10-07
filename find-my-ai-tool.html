@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Not sure which AI tool is right for you? Answer 2 quick questions and get a personalized recommendation based on your role and goal. Free, instant, no signup." />
+  <title>AI Tool Finder: Get Your Personalized AI Pick | MyAIToolPick</title>
+  <link rel="canonical" href="https://myaitoolpick.com/find-my-ai-tool.html" />
+  <meta property="og:title" content="AI Tool Finder: Get Your Personalized AI Pick | MyAIToolPick" />
+  <meta property="og:url" content="https://myaitoolpick.com/find-my-ai-tool.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MyAIToolPick" />
+  <meta property="og:description" content="Not sure which AI tool is right for you? Answer 2 quick questions and get a personalized recommendation based on your role and goal. Free, instant, no signup." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AI Tool Finder: Get Your Personalized AI Pick | MyAIToolPick" />
+  <meta name="twitter:description" content="Not sure which AI tool is right for you? Answer 2 quick questions and get a personalized recommendation based on your role and goal. Free, instant, no signup." />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    .finder-wrap{max-width:800px;margin:0 auto;padding:80px 24px 80px}
+    .finder-hero{text-align:center;margin-bottom:56px}
+    .finder-hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.15;margin-bottom:16px}
+    .finder-hero p{font-size:1.05rem;color:#94a3b8;max-width:520px;margin:0 auto}
+    .finder-hero .badge{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;color:#d0d0d0;letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
+    .step{display:none}
+    .step.active{display:block}
+    .step-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:8px}
+    .step-q{font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:28px;letter-spacing:-.3px}
+    .choice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .choice-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 18px;cursor:pointer;transition:border-color .15s,background .15s;text-align:left}
+    .choice-card:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.07)}
+    .choice-card .icon{font-size:1.6rem;margin-bottom:10px;display:block}
+    .choice-card .label{font-size:.92rem;font-weight:600;color:#fff;line-height:1.3}
+    .choice-card .sub{font-size:.78rem;color:#64748b;margin-top:4px}
+    .progress-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin-bottom:36px;overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,#d0d0d0,#888);border-radius:2px;transition:width .35s ease}
+    .result-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:36px;margin-top:8px}
+    .result-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:12px}
+    .result-title{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+    .result-desc{font-size:.9rem;color:#94a3b8;margin-bottom:28px;line-height:1.7}
+    .result-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+    .btn-primary-finder{display:inline-block;background:#d0d0d0;color:#111;font-weight:700;font-size:.88rem;padding:12px 24px;border-radius:10px;text-decoration:none;transition:background .15s}
+    .btn-primary-finder:hover{background:#fff}
+    .btn-secondary-finder{display:inline-block;background:transparent;color:#d0d0d0;font-weight:600;font-size:.88rem;padding:12px 24px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,.2);transition:border-color .15s}
+    .btn-secondary-finder:hover{border-color:#d0d0d0}
+    .top-tools-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:14px}
+    .tool-pills{display:flex;flex-direction:column;gap:10px}
+    .tool-pill{display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 18px;flex-wrap:wrap}
+    .tool-pill-name{font-size:.95rem;font-weight:700;color:#e2e8f0}
+    .tool-pill-desc{font-size:.82rem;color:#64748b;margin-top:2px}
+    .tool-pill-link{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:8px;padding:6px 14px;font-size:.78rem;font-weight:700;color:#d0d0d0;text-decoration:none;white-space:nowrap;transition:background .15s}
+    .tool-pill-link:hover{background:rgba(200,200,200,.18)}
+    .restart-btn{display:inline-block;margin-top:28px;font-size:.82rem;color:#475569;text-decoration:none;cursor:pointer;border:none;background:none;font-family:inherit}
+    .restart-btn:hover{color:#94a3b8}
+    @media(max-width:520px){.choice-grid{grid-template-columns:1fr 1fr}.result-cta-row{flex-direction:column}}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://myaitoolpick.com/" },
+    { "@type": "ListItem", "position": 2, "name": "AI Tool Finder", "item": "https://myaitoolpick.com/find-my-ai-tool.html" }
+  ]
+}
+  </script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","yt52m4dnf1");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3387137568498785" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+      <nav>
+        <a href="/reviews.html">Reviews</a>
+        <a href="/comparisons.html">Comparisons</a>
+        <a href="/best.html">Best Lists</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/reviews.html">Reviews <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/comparisons.html">Comparisons <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/best.html">Best Lists <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </div>
+
+  <div class="finder-wrap">
+    <div class="finder-hero">
+      <span class="badge">Free Tool Picker</span>
+      <h1>Find Your Perfect AI Tool</h1>
+      <p>Answer 2 quick questions and get a personalized recommendation. No email required.</p>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+    <!-- STEP 1: Role -->
+    <div class="step active" id="step1">
+      <div class="step-label">Step 1 of 2</div>
+      <div class="step-q">What best describes you?</div>
+      <div class="choice-grid">
+        <div class="choice-card" onclick="pickRole('creator')">
+          <span class="icon">✍️</span>
+          <span class="label">Content Creator</span>
+          <span class="sub">Blogger, YouTuber, podcaster</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('marketing')">
+          <span class="icon">📣</span>
+          <span class="label">Marketing Pro</span>
+          <span class="sub">Email, social, SEO, campaigns</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('business')">
+          <span class="icon">💼</span>
+          <span class="label">Business / Sales</span>
+          <span class="sub">Sales rep, founder, executive</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('student')">
+          <span class="icon">🎓</span>
+          <span class="label">Student / Teacher</span>
+          <span class="sub">Studying, research, teaching</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('developer')">
+          <span class="icon">💻</span>
+          <span class="label">Developer</span>
+          <span class="sub">Coding, building software</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('professional')">
+          <span class="icon">🏛️</span>
+          <span class="label">Professional</span>
+          <span class="sub">HR, legal, finance, healthcare</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Goal (populated by JS) -->
+    <div class="step" id="step2">
+      <div class="step-label">Step 2 of 2</div>
+      <div class="step-q" id="step2Q">What's your main goal?</div>
+      <div class="choice-grid" id="goalGrid"></div>
+    </div>
+
+    <!-- STEP 3: Result -->
+    <div class="step" id="step3">
+      <div class="result-box">
+        <div class="result-tag">Your Pick</div>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-desc" id="resultDesc"></div>
+        <div class="result-cta-row">
+          <a href="#" id="resultListBtn" class="btn-primary-finder">See the full list →</a>
+        </div>
+        <div class="top-tools-label">Top 3 tools for you</div>
+        <div class="tool-pills" id="toolPills"></div>
+        <button class="restart-btn" onclick="restart()">← Start over</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+          <p>We may earn commissions from links on this site. This doesn't affect our recommendations. We only recommend tools we've actually tested.</p>
+          <div class="footer-badges">
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> No sponsored rankings</span>
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Hands-on tested</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <p class="footer-heading">Tools</p>
+            <a href="/reviews.html">All Reviews</a>
+            <a href="/comparisons.html">Comparisons</a>
+            <a href="/best.html">Best Lists</a>
+          </div>
+          <div>
+            <p class="footer-heading">Site</p>
+            <a href="/about.html">About</a>
+            <a href="/disclaimer.html">Disclaimer</a>
+            <a href="/privacy.html">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 MyAIToolPick. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/cookie-policy.html">Cookies</a>
+          <a href="#" onclick="window.showCookieConsent&&window.showCookieConsent();return false;">Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161616;border-top:1px solid #252525;padding:20px 24px;z-index:9999;">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div style="flex:1;min-width:260px;">
+        <p style="color:#F2F2F2;font-size:0.875rem;margin:0 0 4px;font-weight:600;font-family:'Space Grotesk',sans-serif;">We use cookies</p>
+        <p style="color:#7A7A7A;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#d0d0d0;">Cookie Policy</a> and <a href="/privacy.html" style="color:#d0d0d0;">Privacy Policy</a>.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid #252525;color:#7A7A7A;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:5px;cursor:pointer;">Decline</button>
+        <button onclick="acceptCookies()" style="background:#e8e8e8;border:none;color:#111;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:5px;cursor:pointer;">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── DATA ──────────────────────────────────────────────────────────────────
+    const TOOLS = {
+      rytr:       { name: 'Rytr',           desc: 'Budget AI writer for emails, blogs, and outreach', href: 'https://rytr.me/?via=henrique-costa' },
+      quillbot:   { name: 'QuillBot',       desc: 'Paraphrase, summarize, and polish any text', href: 'https://try.quillbot.com/9eg3gltkginr' },
+      elevenlabs: { name: 'ElevenLabs',     desc: 'Realistic AI voices for video and audio', href: 'https://try.elevenlabs.io/os6073he74kz' },
+      murf:       { name: 'Murf AI',        desc: 'Studio-quality AI voiceover in minutes', href: 'https://get.murf.ai/pcqp5r7kls5r' },
+      synthesia:  { name: 'Synthesia',      desc: 'Create AI presenter videos without a camera', href: 'https://synthesia.io/?via=henrique-costa' },
+      chatgpt:    { name: 'ChatGPT',        desc: 'Best all-round AI for almost any task', href: 'https://chatgpt.com' },
+      perplexity: { name: 'Perplexity',     desc: 'AI search engine with cited real-time sources', href: 'https://perplexity.ai' },
+      notionai:   { name: 'Notion AI',      desc: 'AI built into your notes and project docs', href: 'https://notion.so' },
+      grammarly:  { name: 'Grammarly',      desc: 'Grammar, tone, and clarity checking everywhere', href: 'https://grammarly.com' },
+      otterai:    { name: 'Otter AI',       desc: 'Transcribe meetings and calls in real time', href: 'https://otter.ai' },
+      copilot:    { name: 'GitHub Copilot', desc: 'AI code completion inside your editor', href: 'https://github.com/features/copilot' },
+      cursor:     { name: 'Cursor',         desc: 'AI-first code editor that edits full files', href: 'https://cursor.sh' },
+      midjourney: { name: 'Midjourney',     desc: 'Best AI image generator for creative work', href: 'https://midjourney.com' },
+      canva:      { name: 'Canva AI',       desc: 'AI design tools built into Canva', href: 'https://canva.com' },
+      runway:     { name: 'Runway',         desc: 'AI video generation and editing', href: 'https://runwayml.com' },
+      surferseo:  { name: 'Surfer SEO',     desc: 'AI-powered on-page SEO optimization', href: 'https://surferseo.com' },
+    };
+
+    const GOALS = {
+      creator: [
+        { label: 'Write blogs faster',       sub: 'Articles, posts, newsletters',   key: 'creator_write' },
+        { label: 'Make videos',              sub: 'YouTube, short-form, reels',      key: 'creator_video' },
+        { label: 'Grow on social media',     sub: 'TikTok, Instagram, LinkedIn',     key: 'creator_social' },
+        { label: 'Start a podcast',          sub: 'Audio content and voiceover',     key: 'creator_podcast' },
+      ],
+      marketing: [
+        { label: 'Email marketing',          sub: 'Campaigns, sequences, copy',      key: 'mkt_email' },
+        { label: 'Social media content',     sub: 'Posts, captions, scheduling',     key: 'mkt_social' },
+        { label: 'SEO and content',          sub: 'Keywords, optimization, blogs',   key: 'mkt_seo' },
+        { label: 'General marketing',        sub: 'Strategy, campaigns, ads',        key: 'mkt_general' },
+      ],
+      business: [
+        { label: 'Sales outreach',           sub: 'Cold emails, proposals, follow-ups', key: 'biz_sales' },
+        { label: 'Run a small business',     sub: 'Operations, content, tasks',      key: 'biz_small' },
+        { label: 'Launch a startup',         sub: 'Move fast, build products',       key: 'biz_startup' },
+        { label: 'Ecommerce',                sub: 'Product copy, listings, ads',     key: 'biz_ecom' },
+      ],
+      student: [
+        { label: 'Study and research',       sub: 'Essays, summaries, notes',        key: 'edu_student' },
+        { label: 'Teach and train others',   sub: 'Lesson plans, training content',  key: 'edu_teacher' },
+        { label: 'Improve my writing',       sub: 'Essays, reports, clarity',        key: 'edu_writing' },
+      ],
+      developer: [
+        { label: 'Write better code faster', sub: 'Any language or framework',       key: 'dev_code' },
+        { label: 'Build a product',          sub: 'Side project or startup',         key: 'dev_product' },
+      ],
+      professional: [
+        { label: 'HR and recruiting',        sub: 'Job posts, onboarding, training', key: 'pro_hr' },
+        { label: 'Legal work',               sub: 'Contracts, research, briefs',     key: 'pro_legal' },
+        { label: 'Finance tasks',            sub: 'Reports, summaries, analysis',    key: 'pro_finance' },
+        { label: 'Real estate',              sub: 'Listings, emails, proposals',     key: 'pro_realestate' },
+      ],
+    };
+
+    const RESULTS = {
+      creator_write:    { title: 'Best AI Tools for Bloggers', desc: 'These are the tools that help bloggers and writers go from idea to published post faster without sacrificing quality.', list: '/best/best-ai-tools-for-bloggers.html', tools: ['rytr','quillbot','chatgpt'] },
+      creator_video:    { title: 'Best AI Video Tools for YouTube', desc: 'From scripting to voiceover to editing, these tools cover the entire YouTube video production pipeline.', list: '/best/best-ai-video-tools-for-youtube.html', tools: ['synthesia','elevenlabs','runway'] },
+      creator_social:   { title: 'Best AI Tools for TikTok Creators', desc: 'Faster hooks, better captions, AI-generated voiceovers and trending audio. These tools are built for short-form.', list: '/best/best-ai-tools-for-tiktok.html', tools: ['elevenlabs','chatgpt','murf'] },
+      creator_podcast:  { title: 'Best AI Tools for Podcasters', desc: 'Record, transcribe, edit, and repurpose your podcast episodes with these AI-powered tools.', list: '/best/best-ai-tools-for-podcasters.html', tools: ['elevenlabs','otterai','murf'] },
+      mkt_email:        { title: 'Best AI Tools for Email Marketing', desc: 'Write better subject lines, sequences, and campaigns in a fraction of the time. These tools integrate with your existing email stack.', list: '/best/best-ai-tools-for-email-marketing.html', tools: ['rytr','quillbot','chatgpt'] },
+      mkt_social:       { title: 'Best AI Tools for Social Media', desc: 'Plan, write, and schedule social content across every platform without burning out your content team.', list: '/best/ai-for-social-media.html', tools: ['rytr','chatgpt','canva'] },
+      mkt_seo:          { title: 'Best AI SEO Tools', desc: 'Research keywords, optimize content, and rank faster with AI tools built specifically for SEO.', list: '/best/best-ai-seo-tools.html', tools: ['surferseo','chatgpt','quillbot'] },
+      mkt_general:      { title: 'Best AI Tools for Marketing', desc: 'From campaign strategy to ad copy to analytics, these are the AI tools that modern marketing teams actually use.', list: '/best/best-ai-tools-for-marketing.html', tools: ['rytr','chatgpt','quillbot'] },
+      biz_sales:        { title: 'Best AI Tools for Sales Teams', desc: 'Close more deals with AI that writes cold emails, transcribes calls, and drafts proposals while you focus on selling.', list: '/best/best-ai-tools-for-sales.html', tools: ['rytr','otterai','chatgpt'] },
+      biz_small:        { title: 'Best AI Tools for Small Business', desc: 'The AI toolkit for small business owners who wear every hat and need to move fast without a big team.', list: '/best/best-ai-tools-for-small-business.html', tools: ['chatgpt','rytr','notionai'] },
+      biz_startup:      { title: 'Best AI Tools for Startups', desc: 'Build faster, write better, and do more with a lean team. These tools give you startup leverage.', list: '/best/best-ai-tools-for-startups.html', tools: ['chatgpt','cursor','notionai'] },
+      biz_ecom:         { title: 'Best AI Tools for Ecommerce', desc: 'Write product descriptions, generate ad copy, and automate customer emails at scale.', list: '/best/best-ai-tools-for-ecommerce.html', tools: ['rytr','chatgpt','quillbot'] },
+      edu_student:      { title: 'Best AI Tools for Students', desc: 'Research faster, understand complex topics, and write better essays with these student-focused AI tools.', list: '/best/ai-for-students.html', tools: ['quillbot','perplexity','chatgpt'] },
+      edu_teacher:      { title: 'Best AI Tools for Teachers', desc: 'Create lesson plans, generate quizzes, and build training videos. Save hours every week with these tools.', list: '/best/best-ai-tools-for-teachers.html', tools: ['chatgpt','elevenlabs','synthesia'] },
+      edu_writing:      { title: 'Best AI Tools for Writers', desc: 'Whether you write fiction, essays, or reports, these are the tools that make your writing sharper and faster.', list: '/best/best-ai-tools-for-writers.html', tools: ['quillbot','grammarly','rytr'] },
+      dev_code:         { title: 'Best AI Tools for Coding', desc: 'The AI tools that senior developers actually use every day. Write, debug, and refactor code faster.', list: '/best/ai-for-coding.html', tools: ['copilot','cursor','chatgpt'] },
+      dev_product:      { title: 'Best AI Tools for Startups', desc: 'Ship faster with AI that helps you write code, build docs, and manage a lean product team.', list: '/best/best-ai-tools-for-startups.html', tools: ['cursor','chatgpt','notionai'] },
+      pro_hr:           { title: 'Best AI Tools for HR Teams', desc: 'Write job descriptions, build onboarding docs, and create training videos without a full content team.', list: '/best/best-ai-tools-for-hr.html', tools: ['rytr','elevenlabs','synthesia'] },
+      pro_legal:        { title: 'Best AI Tools for Lawyers', desc: 'Research, summarize case law, and draft clearer documents. A solid legal AI toolkit with important caveats.', list: '/best/best-ai-tools-for-lawyers.html', tools: ['quillbot','perplexity','otterai'] },
+      pro_finance:      { title: 'Best AI Tools for Finance Professionals', desc: 'Summarize reports, draft analysis, and automate routine document work while keeping sensitive data secure.', list: '/best/best-ai-tools-for-finance.html', tools: ['chatgpt','quillbot','otterai'] },
+      pro_realestate:   { title: 'Best AI Tools for Real Estate Agents', desc: 'Write listing descriptions, draft client emails, and generate market reports in minutes.', list: '/best/best-ai-tools-for-real-estate.html', tools: ['chatgpt','rytr','quillbot'] },
+    };
+
+    // ── STATE ─────────────────────────────────────────────────────────────────
+    let selectedRole = null;
+
+    function setProgress(pct) {
+      document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    function showStep(id) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function pickRole(role) {
+      selectedRole = role;
+      const goals = GOALS[role];
+      document.getElementById('goalGrid').innerHTML = goals.map(g =>
+        `<div class="choice-card" onclick="pickGoal('${g.key}')">
+          <span class="label">${g.label}</span>
+          <span class="sub">${g.sub}</span>
+        </div>`
+      ).join('');
+      setProgress(50);
+      showStep('step2');
+    }
+
+    function pickGoal(key) {
+      const r = RESULTS[key];
+      if (!r) return;
+      document.getElementById('resultTitle').textContent = r.title;
+      document.getElementById('resultDesc').textContent = r.desc;
+      document.getElementById('resultListBtn').href = r.list;
+      document.getElementById('toolPills').innerHTML = r.tools.map(tid => {
+        const t = TOOLS[tid];
+        return `<div class="tool-pill">
+          <div>
+            <div class="tool-pill-name">${t.name}</div>
+            <div class="tool-pill-desc">${t.desc}</div>
+          </div>
+          <a href="${t.href}" target="_blank" rel="noopener noreferrer" class="tool-pill-link">Try free →</a>
+        </div>`;
+      }).join('');
+      setProgress(100);
+      showStep('step3');
+    }
+
+    function restart() {
+      selectedRole = null;
+      setProgress(0);
+      showStep('step1');
+    }
+
+    // ── NAV ───────────────────────────────────────────────────────────────────
+    const navToggle = document.getElementById('navToggle');
+    const navMobile = document.getElementById('navMobile');
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navMobile.classList.remove('open');
+      navToggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // ── COOKIE CONSENT ────────────────────────────────────────────────────────
+    function getCookie(n){var v='; '+document.cookie,p=v.split('; '+n+'=');if(p.length===2)return p.pop().split(';').shift();}
+    function setCookie(n,v,d){var x=new Date();x.setTime(x.getTime()+(d*86400000));document.cookie=n+'='+v+';expires='+x.toUTCString()+';path=/;SameSite=Lax';}
+    function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookie-banner').style.display='none';loadAnalytics();}
+    function declineCookies(){setCookie('cookie_consent','declined',365);document.getElementById('cookie-banner').style.display='none';}
+    function loadAnalytics(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-QCSWNX897K';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-QCSWNX897K');}
+    window.showCookieConsent=function(){document.getElementById('cookie-banner').style.display='block';};
+    window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
+  </script>
+</body>
+</html>
