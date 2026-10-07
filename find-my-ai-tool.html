@@ -52,6 +52,12 @@
     .tool-pill-link:hover{background:rgba(200,200,200,.18)}
     .restart-btn{display:inline-block;margin-top:28px;font-size:.82rem;color:#475569;text-decoration:none;cursor:pointer;border:none;background:none;font-family:inherit}
     .restart-btn:hover{color:#94a3b8}
+    .budget-filter{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+    .budget-btn{padding:5px 13px;border-radius:20px;font-size:.76rem;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:transparent;color:#64748b;font-family:inherit;transition:all .15s;}
+    .budget-btn:hover{border-color:rgba(255,255,255,.25);color:#94a3b8;}
+    .budget-btn.active{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.35);color:#4ade80;}
+    .free-tools-link{display:none;font-size:.78rem;color:#4ade80;text-decoration:none;margin-top:12px;display:none;}
+    .free-tools-link.visible{display:inline-block;}
     @media(max-width:520px){.choice-grid{grid-template-columns:1fr 1fr}.result-cta-row{flex-direction:column}}
   </style>
   <script type="application/ld+json">
@@ -170,8 +176,15 @@
         <div class="result-cta-row">
           <a href="#" id="resultListBtn" class="btn-primary-finder">See the full list →</a>
         </div>
-        <div class="top-tools-label">Top 3 tools for you</div>
+        <div class="budget-filter">
+          <span style="font-size:.76rem;color:#64748b;font-weight:600;">Budget:</span>
+          <button class="budget-btn active" id="budgetAny" onclick="setBudget('any',this)">Any</button>
+          <button class="budget-btn" id="budgetFree" onclick="setBudget('free',this)">Free tier only</button>
+          <button class="budget-btn" id="budgetU20" onclick="setBudget('20',this)">Under $20/mo</button>
+        </div>
+        <div class="top-tools-label">Top tools for you</div>
         <div class="tool-pills" id="toolPills"></div>
+        <a href="/best/best-free-ai-tools.html" id="freeToolsLink" class="free-tools-link">See all free AI tools →</a>
         <button class="restart-btn" onclick="restart()">← Start over</button>
       </div>
     </div>
@@ -231,22 +244,22 @@
   <script>
     // ── DATA ──────────────────────────────────────────────────────────────────
     const TOOLS = {
-      rytr:       { name: 'Rytr',           desc: 'Budget AI writer for emails, blogs, and outreach', href: 'https://rytr.me/?via=henrique-costa' },
-      quillbot:   { name: 'QuillBot',       desc: 'Paraphrase, summarize, and polish any text', href: 'https://try.quillbot.com/9eg3gltkginr' },
-      elevenlabs: { name: 'ElevenLabs',     desc: 'Realistic AI voices for video and audio', href: 'https://try.elevenlabs.io/os6073he74kz' },
-      murf:       { name: 'Murf AI',        desc: 'Studio-quality AI voiceover in minutes', href: 'https://get.murf.ai/pcqp5r7kls5r' },
-      synthesia:  { name: 'Synthesia',      desc: 'Create AI presenter videos without a camera', href: 'https://synthesia.io/?via=henrique-costa' },
-      chatgpt:    { name: 'ChatGPT',        desc: 'Best all-round AI for almost any task', href: 'https://chatgpt.com' },
-      perplexity: { name: 'Perplexity',     desc: 'AI search engine with cited real-time sources', href: 'https://perplexity.ai' },
-      notionai:   { name: 'Notion AI',      desc: 'AI built into your notes and project docs', href: 'https://notion.so' },
-      grammarly:  { name: 'Grammarly',      desc: 'Grammar, tone, and clarity checking everywhere', href: 'https://grammarly.com' },
-      otterai:    { name: 'Otter AI',       desc: 'Transcribe meetings and calls in real time', href: 'https://otter.ai' },
-      copilot:    { name: 'GitHub Copilot', desc: 'AI code completion inside your editor', href: 'https://github.com/features/copilot' },
-      cursor:     { name: 'Cursor',         desc: 'AI-first code editor that edits full files', href: 'https://cursor.sh' },
-      midjourney: { name: 'Midjourney',     desc: 'Best AI image generator for creative work', href: 'https://midjourney.com' },
-      canva:      { name: 'Canva AI',       desc: 'AI design tools built into Canva', href: 'https://canva.com' },
-      runway:     { name: 'Runway',         desc: 'AI video generation and editing', href: 'https://runwayml.com' },
-      surferseo:  { name: 'Surfer SEO',     desc: 'AI-powered on-page SEO optimization', href: 'https://surferseo.com' },
+      rytr:       { name: 'Rytr',           desc: 'Budget AI writer for emails, blogs, and outreach', href: 'https://rytr.me/?via=henrique-costa',           free: true,  price: 9 },
+      quillbot:   { name: 'QuillBot',       desc: 'Paraphrase, summarize, and polish any text',       href: 'https://try.quillbot.com/9eg3gltkginr',         free: true,  price: 9.95 },
+      elevenlabs: { name: 'ElevenLabs',     desc: 'Realistic AI voices for video and audio',          href: 'https://try.elevenlabs.io/os6073he74kz',        free: true,  price: 5 },
+      murf:       { name: 'Murf AI',        desc: 'Studio-quality AI voiceover in minutes',           href: 'https://get.murf.ai/pcqp5r7kls5r',              free: false, price: 29 },
+      synthesia:  { name: 'Synthesia',      desc: 'Create AI presenter videos without a camera',      href: 'https://synthesia.io/?via=henrique-costa',      free: false, price: 18 },
+      chatgpt:    { name: 'ChatGPT',        desc: 'Best all-round AI for almost any task',            href: 'https://chatgpt.com',                           free: true,  price: 20 },
+      perplexity: { name: 'Perplexity',     desc: 'AI search engine with cited real-time sources',   href: 'https://perplexity.ai',                         free: true,  price: 20 },
+      notionai:   { name: 'Notion AI',      desc: 'AI built into your notes and project docs',        href: 'https://notion.so',                             free: true,  price: 10 },
+      grammarly:  { name: 'Grammarly',      desc: 'Grammar, tone, and clarity checking everywhere',  href: 'https://grammarly.com',                         free: true,  price: 12 },
+      otterai:    { name: 'Otter AI',       desc: 'Transcribe meetings and calls in real time',       href: 'https://otter.ai',                              free: true,  price: 17 },
+      copilot:    { name: 'GitHub Copilot', desc: 'AI code completion inside your editor',            href: 'https://github.com/features/copilot',           free: false, price: 19 },
+      cursor:     { name: 'Cursor',         desc: 'AI-first code editor that edits full files',       href: 'https://cursor.sh',                             free: true,  price: 20 },
+      midjourney: { name: 'Midjourney',     desc: 'Best AI image generator for creative work',        href: 'https://midjourney.com',                        free: false, price: 10 },
+      canva:      { name: 'Canva AI',       desc: 'AI design tools built into Canva',                 href: 'https://canva.com',                             free: true,  price: 15 },
+      runway:     { name: 'Runway',         desc: 'AI video generation and editing',                  href: 'https://runwayml.com',                          free: true,  price: 12 },
+      surferseo:  { name: 'Surfer SEO',     desc: 'AI-powered on-page SEO optimization',             href: 'https://surferseo.com',                         free: false, price: 89 },
     };
 
     const GOALS = {
@@ -347,6 +360,8 @@
 
     // ── STATE ─────────────────────────────────────────────────────────────────
     let selectedRole = null;
+    let currentTools = [];
+    let currentBudget = 'any';
 
     function setProgress(pct) {
       document.getElementById('progressFill').style.width = pct + '%';
@@ -374,25 +389,58 @@
     function pickGoal(key) {
       const r = RESULTS[key];
       if (!r) return;
+      currentTools = r.tools;
+      currentBudget = 'any';
       document.getElementById('resultTitle').textContent = r.title;
       document.getElementById('resultDesc').textContent = r.desc;
       document.getElementById('resultListBtn').href = r.list;
-      document.getElementById('toolPills').innerHTML = r.tools.map(tid => {
+      // reset budget buttons
+      document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('budgetAny').classList.add('active');
+      document.getElementById('freeToolsLink').classList.remove('visible');
+      renderTools(r.tools);
+      setProgress(100);
+      showStep('step3');
+    }
+
+    function renderTools(toolIds) {
+      const pills = toolIds.map(tid => {
         const t = TOOLS[tid];
+        const badge = t.free ? '<span style="font-size:.68rem;font-weight:700;color:#4ade80;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:4px;padding:1px 6px;margin-left:6px;">Free tier</span>' : '';
         return `<div class="tool-pill">
           <div>
-            <div class="tool-pill-name">${t.name}</div>
+            <div class="tool-pill-name">${t.name}${badge}</div>
             <div class="tool-pill-desc">${t.desc}</div>
           </div>
           <a href="${t.href}" target="_blank" rel="noopener noreferrer" class="tool-pill-link">Try free →</a>
         </div>`;
       }).join('');
-      setProgress(100);
-      showStep('step3');
+      document.getElementById('toolPills').innerHTML = pills || '<p style="color:#64748b;font-size:.88rem;">No matching tools for this filter. <a href="/best/best-free-ai-tools.html" style="color:#4ade80;">See all free tools →</a></p>';
+    }
+
+    function setBudget(budget, btn) {
+      currentBudget = budget;
+      document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const freeLink = document.getElementById('freeToolsLink');
+      if (budget === 'free') {
+        const filtered = currentTools.filter(tid => TOOLS[tid].free);
+        renderTools(filtered);
+        freeLink.classList.add('visible');
+      } else if (budget === '20') {
+        const filtered = currentTools.filter(tid => TOOLS[tid].price <= 20);
+        renderTools(filtered);
+        freeLink.classList.remove('visible');
+      } else {
+        renderTools(currentTools);
+        freeLink.classList.remove('visible');
+      }
     }
 
     function restart() {
       selectedRole = null;
+      currentTools = [];
+      currentBudget = 'any';
       setProgress(0);
       showStep('step1');
     }
