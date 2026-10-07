@@ -1138,3 +1138,13 @@ nav a.nav-active {
 .sb-bar { flex: 1; height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
 .sb-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); border-radius: 3px; }
 .sb-val { font-size: .8rem; color: #d0d0d0; font-weight: 600; width: 28px; text-align: right; flex-shrink: 0; }
+
+/* === CHANGELOG === */
+.changelog { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); }
+.changelog h4 { font-size: .8rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.changelog ul { list-style: none; padding: 0; margin-bottom: 10px; }
+.changelog li { font-size: .82rem; color: #64748b; padding: 5px 0; }
+.changelog li strong { color: #94a3b8; }
+.error-report { font-size: .78rem; color: #475569; margin: 0; }
+.error-report a { color: #64748b; text-decoration: none; }
+.error-report a:hover { color: #94a3b8; }
