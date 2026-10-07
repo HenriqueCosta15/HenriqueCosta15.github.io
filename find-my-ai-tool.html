@@ -141,6 +141,16 @@
           <span class="label">Journalist / Researcher</span>
           <span class="sub">Reporting, writing, fact-checking</span>
         </div>
+        <div class="choice-card" onclick="pickRole('creative')">
+          <span class="icon">🎵</span>
+          <span class="label">Artist / Musician</span>
+          <span class="sub">Music, photography, visual arts</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('coach')">
+          <span class="icon">🎯</span>
+          <span class="label">Coach / Consultant</span>
+          <span class="sub">Life coaching, business consulting</span>
+        </div>
       </div>
     </div>
 
@@ -285,6 +295,16 @@
         { label: 'Write faster',             sub: 'Articles, reports, summaries',    key: 'jour_write' },
         { label: 'Transcribe interviews',    sub: 'Meetings, calls, recordings',     key: 'jour_transcribe' },
       ],
+      creative: [
+        { label: 'Music and production',     sub: 'Lyrics, artwork, marketing',      key: 'art_music' },
+        { label: 'Photography',              sub: 'Editing, marketing, client work', key: 'art_photo' },
+        { label: 'Design and visual arts',   sub: 'Concepts, branding, graphics',    key: 'art_design' },
+      ],
+      coach: [
+        { label: 'Build my coaching program',sub: 'Courses, workbooks, content',     key: 'coach_build' },
+        { label: 'Get more clients',         sub: 'Content marketing, social',       key: 'coach_mkt' },
+        { label: 'Manage client work',       sub: 'Notes, docs, session prep',       key: 'coach_ops' },
+      ],
     };
 
     const RESULTS = {
@@ -317,6 +337,12 @@
       jour_research:    { title: 'Best AI Tools for Journalists', desc: 'Verify facts, surface background context, and find sources faster with AI research tools built for accuracy.', list: '/best/best-ai-tools-for-journalists.html', tools: ['perplexity','chatgpt','otterai'] },
       jour_write:       { title: 'Best AI Tools for Journalists', desc: 'Draft faster, cut writer\'s block, and polish your prose without losing your voice.', list: '/best/best-ai-tools-for-journalists.html', tools: ['chatgpt','quillbot','rytr'] },
       jour_transcribe:  { title: 'Best AI Tools for Journalists', desc: 'Transcribe interviews and press conferences automatically with speaker labels and searchable text.', list: '/best/best-ai-tools-for-journalists.html', tools: ['otterai','chatgpt','quillbot'] },
+      art_music:        { title: 'Best AI Tools for Musicians', desc: 'Write lyrics, generate album artwork, create video content, and market your music with AI.', list: '/best/best-ai-tools-for-musicians.html', tools: ['chatgpt','midjourney','elevenlabs'] },
+      art_photo:        { title: 'Best AI Tools for Photographers', desc: 'Plan shoots with AI mood boards, write client emails faster, and market your photography business.', list: '/best/best-ai-tools-for-photographers.html', tools: ['midjourney','chatgpt','canva'] },
+      art_design:       { title: 'Best AI Tools for Designers', desc: 'Generate concepts, automate design tasks, and build creative workflows with the best AI for designers.', list: '/best/best-ai-tools-for-designers.html', tools: ['midjourney','canva','chatgpt'] },
+      coach_build:      { title: 'Best AI Tools for Coaches', desc: 'Build programs, create course videos, write workbooks, and onboard clients with AI.', list: '/best/best-ai-tools-for-coaches.html', tools: ['chatgpt','synthesia','elevenlabs'] },
+      coach_mkt:        { title: 'Best AI Tools for Coaches', desc: 'Grow your coaching practice with consistent content, email newsletters, and social media done faster with AI.', list: '/best/best-ai-tools-for-coaches.html', tools: ['rytr','chatgpt','quillbot'] },
+      coach_ops:        { title: 'Best AI Tools for Coaches', desc: 'Transcribe sessions, organize client notes, and manage your practice more efficiently with AI.', list: '/best/best-ai-tools-for-coaches.html', tools: ['otterai','notionai','chatgpt'] },
     };
 
     // ── STATE ─────────────────────────────────────────────────────────────────
