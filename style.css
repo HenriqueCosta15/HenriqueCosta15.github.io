@@ -792,6 +792,19 @@ nav a.nav-active {
   gap: 10px;
 }
 
+.list-section-header {
+  grid-column: 1 / -1;
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #555;
+  padding: 24px 0 8px;
+  border-top: 1px solid #1e1e1e;
+  margin-top: 8px;
+}
+.list-section-header:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+
 .list-card {
   display: flex;
   align-items: center;
