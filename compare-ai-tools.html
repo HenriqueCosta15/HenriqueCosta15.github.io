@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compare any two AI tools side by side. Scores, pricing, free tiers, pros and cons — all in one place. Pick your tools and see the full breakdown instantly." />
+  <title>Compare AI Tools Side by Side (2026) | MyAIToolPick</title>
+  <link rel="canonical" href="https://myaitoolpick.com/compare-ai-tools.html" />
+  <meta property="og:title" content="Compare AI Tools Side by Side (2026) | MyAIToolPick" />
+  <meta property="og:url" content="https://myaitoolpick.com/compare-ai-tools.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MyAIToolPick" />
+  <meta property="og:description" content="Compare any two AI tools side by side. Scores, pricing, free tiers, pros and cons — all in one place." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Compare AI Tools Side by Side (2026) | MyAIToolPick" />
+  <meta name="twitter:description" content="Pick any two AI tools and get an instant side-by-side breakdown." />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    .compare-wrap{max-width:960px;margin:0 auto;padding:80px 24px 80px}
+    .compare-hero{text-align:center;margin-bottom:52px}
+    .compare-hero h1{font-size:clamp(1.9rem,4.5vw,2.8rem);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+    .compare-hero p{font-size:1rem;color:#94a3b8;max-width:540px;margin:0 auto}
+    .compare-hero .badge{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;color:#d0d0d0;letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
+
+    /* Pickers */
+    .pickers{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-bottom:40px}
+    .vs-badge{font-size:1rem;font-weight:800;color:#64748b;text-align:center}
+    .picker-box{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px}
+    .picker-box label{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:10px}
+    .tool-select{width:100%;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#e2e8f0;font-size:.92rem;font-weight:600;padding:10px 14px;appearance:none;cursor:pointer;font-family:inherit}
+    .tool-select:focus{outline:none;border-color:rgba(255,255,255,.35)}
+
+    /* Placeholder */
+    .compare-placeholder{text-align:center;padding:60px 24px;color:#475569;font-size:.9rem}
+    .compare-placeholder svg{opacity:.2;margin-bottom:16px}
+
+    /* Result */
+    .compare-result{display:none}
+    .compare-result.visible{display:block}
+
+    /* Top cards */
+    .tool-heads{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0}
+    .tool-head{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px 14px 0 0;padding:24px;text-align:center;border-bottom:none}
+    .tool-head-name{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:4px}
+    .tool-head-tagline{font-size:.82rem;color:#64748b;margin-bottom:14px}
+    .tool-head-score{font-size:2.4rem;font-weight:800;color:#d0d0d0;line-height:1}
+    .tool-head-score-label{font-size:.72rem;color:#64748b;margin-top:2px}
+    .tool-head-cta{display:inline-block;background:#d0d0d0;color:#111;font-weight:700;font-size:.82rem;padding:9px 20px;border-radius:8px;text-decoration:none;margin-top:14px;transition:background .15s}
+    .tool-head-cta:hover{background:#fff}
+    .tool-head-review{display:inline-block;font-size:.78rem;color:#64748b;text-decoration:none;margin-top:8px;}
+    .tool-head-review:hover{color:#94a3b8}
+
+    /* Comparison table */
+    .compare-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:0 0 14px 14px;overflow:hidden}
+    .compare-table tr:not(:last-child){border-bottom:1px solid rgba(255,255,255,.05)}
+    .compare-table tr:hover td{background:rgba(255,255,255,.025)}
+    .compare-table td{padding:14px 20px;font-size:.88rem;vertical-align:top}
+    .compare-table td:first-child{font-weight:700;color:#64748b;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;width:130px;white-space:nowrap}
+    .compare-table td:nth-child(2),.compare-table td:nth-child(3){color:#94a3b8;width:calc((100% - 130px)/2)}
+    .compare-table .winner{color:#e2e8f0;font-weight:600}
+    .compare-table .highlight-cell{background:rgba(208,208,208,.04)}
+    .pro-item{color:#4ade80;font-size:.84rem;padding:2px 0}
+    .pro-item::before{content:"+ ";font-weight:700}
+    .con-item{color:#f87171;font-size:.84rem;padding:2px 0}
+    .con-item::before{content:"- ";font-weight:700}
+    .free-yes{color:#4ade80;font-weight:600}
+    .free-no{color:#f87171}
+    .rating-dots{display:flex;gap:4px;margin-top:2px}
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15)}
+    .dot.filled{background:#d0d0d0}
+
+    /* Suggestions */
+    .compare-suggestions{margin-top:48px}
+    .compare-suggestions h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:16px}
+    .suggestion-pills{display:flex;flex-wrap:wrap;gap:8px}
+    .suggestion-pill{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:7px 14px;font-size:.8rem;color:#94a3b8;cursor:pointer;transition:all .15s}
+    .suggestion-pill:hover{border-color:rgba(255,255,255,.25);color:#e2e8f0}
+
+    @media(max-width:640px){
+      .pickers{grid-template-columns:1fr;gap:12px}
+      .vs-badge{display:none}
+      .tool-heads{grid-template-columns:1fr}
+      .tool-head{border-radius:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+      .compare-table{display:block;overflow-x:auto}
+      .compare-table td:first-child{width:100px}
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://myaitoolpick.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Compare AI Tools", "item": "https://myaitoolpick.com/compare-ai-tools.html" }
+  ]
+}
+  </script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","yt52m4dnf1");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3387137568498785" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+      <nav>
+        <a href="/reviews.html">Reviews</a>
+        <a href="/comparisons.html">Comparisons</a>
+        <a href="/best.html">Best Lists</a>
+        <a href="/find-my-ai-tool.html" style="color:#d0d0d0;font-weight:600;">Tool Finder</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/reviews.html">Reviews <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/comparisons.html">Comparisons <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/best.html">Best Lists <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/find-my-ai-tool.html" style="color:#d0d0d0;">Tool Finder <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </div>
+
+  <div class="compare-wrap">
+    <div class="compare-hero">
+      <span class="badge">Tool Comparison</span>
+      <h1>Compare AI Tools Side by Side</h1>
+      <p>Pick any two tools and get a full breakdown: scores, pricing, free tiers, pros and cons. No signup required.</p>
+    </div>
+
+    <div class="pickers">
+      <div class="picker-box">
+        <label for="toolA">First tool</label>
+        <select class="tool-select" id="toolA" onchange="render()">
+          <option value="">Choose a tool...</option>
+        </select>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="picker-box">
+        <label for="toolB">Second tool</label>
+        <select class="tool-select" id="toolB" onchange="render()">
+          <option value="">Choose a tool...</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="placeholder" class="compare-placeholder">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>
+      <p>Select two tools above to see the comparison.</p>
+    </div>
+
+    <div id="result" class="compare-result">
+      <div class="tool-heads" id="toolHeads"></div>
+      <table class="compare-table" id="compareTable"></table>
+      <div class="compare-suggestions">
+        <h3>Popular comparisons</h3>
+        <div class="suggestion-pills" id="suggestions"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+          <p>We may earn commissions from links on this site. This doesn't affect our reviews. We only recommend tools we've actually tested.</p>
+          <div class="footer-badges">
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> No sponsored rankings</span>
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Hands-on tested</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Content</h4>
+          <a href="/reviews.html">All Reviews</a>
+          <a href="/comparisons.html">Comparisons</a>
+          <a href="/best.html">Best Lists</a>
+          <a href="/find-my-ai-tool.html" style="color:#d0d0d0;font-weight:600;">Tool Finder</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/about.html">About</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/disclaimer.html">Affiliate Disclaimer</a>
+          <a href="/terms.html">Terms of Use</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MyAIToolPick. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/imprint.html">Imprint</a>
+          <a href="/cookie-policy.html">Cookie Policy</a>
+          <a href="#" onclick="window.showCookieConsent&&window.showCookieConsent();return false;">Manage Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161616;border-top:1px solid #252525;padding:20px 24px;z-index:9999;">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div style="flex:1;min-width:260px;">
+        <p style="color:#F2F2F2;font-size:0.875rem;margin:0 0 4px;font-weight:600;font-family:'Space Grotesk',sans-serif;">We use cookies</p>
+        <p style="color:#7A7A7A;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#d0d0d0;">Cookie Policy</a> and <a href="/privacy.html" style="color:#d0d0d0;">Privacy Policy</a>.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid #252525;color:#7A7A7A;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:5px;cursor:pointer;">Decline</button>
+        <button onclick="acceptCookies()" style="background:#e8e8e8;border:none;color:#111;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:5px;cursor:pointer;">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const TOOLS = {
+    chatgpt:    { name:'ChatGPT',        maker:'OpenAI',        tagline:'Best all-round AI assistant',                  score:9.4, free:true,  freeTier:'GPT-4o with daily limits',    price:'Free / $20/mo',    bestFor:'Writing, coding, research, Q&A',         ease:5, quality:5, value:5, pros:['Most versatile AI available','Excellent free tier','Massive plugin ecosystem'], cons:['Can hallucinate facts','Slower on complex tasks'],                            href:'https://chatgpt.com',                              review:null },
+    rytr:       { name:'Rytr',           maker:'Rytr',          tagline:'Budget AI writer for copy and content',         score:8.8, free:true,  freeTier:'10,000 characters/month',     price:'Free / From $9/mo', bestFor:'Emails, ads, social copy',               ease:5, quality:4, value:5, pros:['Cheapest paid plan available','40+ use-case templates','30+ languages'],   cons:['Output can feel formulaic','Limited long-form'],                               href:'https://rytr.me/?via=henrique-costa',               review:'/reviews/rytr.html' },
+    quillbot:   { name:'QuillBot',       maker:'QuillBot Inc',  tagline:'Best AI paraphrasing and rewriting tool',       score:8.6, free:true,  freeTier:'125 words per paraphrase',    price:'Free / From $9.95/mo',bestFor:'Rewriting, editing, summarizing',         ease:5, quality:4, value:5, pros:['Best paraphrasing tool available','Works in Google Docs and Word','Grammar checker included'], cons:['Free tier word limit is low','Not a full writing tool'], href:'https://try.quillbot.com/9eg3gltkginr',             review:'/reviews/quillbot.html' },
+    elevenlabs: { name:'ElevenLabs',     maker:'ElevenLabs',    tagline:'Best AI voice generator for realism',           score:9.1, free:true,  freeTier:'10,000 characters/month',     price:'Free / From $5/mo', bestFor:'Voiceovers, narration, podcasts',         ease:4, quality:5, value:5, pros:['Most realistic AI voices available','30+ languages','Lowest paid plan price'], cons:['Free tier has audio watermark','Voice cloning needs paid plan'],              href:'https://try.elevenlabs.io/os6073he74kz',            review:'/reviews/elevenlabs.html' },
+    murf:       { name:'Murf AI',        maker:'Murf',          tagline:'Studio-quality AI voiceover platform',          score:8.7, free:false, freeTier:'No free tier',                price:'From $29/mo',       bestFor:'Corporate voiceovers, presentations',     ease:5, quality:4, value:3, pros:['Best team collaboration features','Slide sync for presentations','120+ voices'], cons:['No free tier','More expensive than ElevenLabs'],                              href:'https://get.murf.ai/pcqp5r7kls5r',                 review:'/reviews/murf-ai.html' },
+    synthesia:  { name:'Synthesia',      maker:'Synthesia',     tagline:'AI video with on-screen presenter avatars',     score:8.9, free:false, freeTier:'No free tier',                price:'From $18/mo',       bestFor:'Training videos, explainers, HR content', ease:4, quality:5, value:4, pros:['Most realistic AI avatars','No camera or studio needed','Multi-language lip sync'], cons:['No free tier','Limited customization on entry plan'],                        href:'https://synthesia.io/?via=henrique-costa',          review:'/reviews/synthesia.html' },
+    grammarly:  { name:'Grammarly',      maker:'Grammarly',     tagline:'AI writing assistant for error-free text',      score:8.8, free:true,  freeTier:'Grammar and spelling, unlimited', price:'Free / From $12/mo',bestFor:'Proofreading, tone checking, emails',    ease:5, quality:4, value:4, pros:['Works everywhere in your browser','Catches errors others miss','Tone and clarity suggestions'], cons:['Premium features gated','Can over-suggest changes'],                        href:'https://grammarly.com',                             review:null },
+    canva:      { name:'Canva AI',       maker:'Canva',         tagline:'AI design tools for everyone',                  score:8.7, free:true,  freeTier:'100+ AI credits/month',       price:'Free / From $15/mo',bestFor:'Social graphics, presentations, design',  ease:5, quality:4, value:5, pros:['Best free design tool available','Huge template library','AI image generation included'], cons:['Premium assets require upgrade','Not for complex design work'],              href:'https://canva.com',                                review:null },
+    perplexity: { name:'Perplexity AI',  maker:'Perplexity',    tagline:'AI search with real-time cited sources',        score:9.0, free:true,  freeTier:'Unlimited standard searches', price:'Free / $20/mo',     bestFor:'Research, fact-checking, current events', ease:5, quality:5, value:5, pros:['Every answer is cited with sources','Real-time web access','Free tier is very generous'], cons:['Less creative than ChatGPT','Limited image handling'],                       href:'https://perplexity.ai',                             review:null },
+    notionai:   { name:'Notion AI',      maker:'Notion',        tagline:'AI built into your workspace and docs',         score:8.4, free:true,  freeTier:'20 AI responses to try',      price:'Free / $10/mo add-on',bestFor:'Notes, project docs, team wikis',        ease:4, quality:4, value:4, pros:['AI lives inside your existing workspace','Summarize and organize docs fast','Great for teams'], cons:['AI features require paid add-on after trial','Not a standalone writing tool'], href:'https://notion.so',                                review:null },
+    otterai:    { name:'Otter.ai',       maker:'Otter.ai',      tagline:'Best AI transcription for meetings',            score:8.5, free:true,  freeTier:'300 minutes/month',           price:'Free / From $17/mo',bestFor:'Meeting notes, interviews, call transcripts',ease:5,quality:4,value:4, pros:['Auto-joins Zoom/Meet/Teams','Speaker identification','Searchable transcripts'], cons:['30 min per conversation cap on free','Accuracy drops with accents'],          href:'https://otter.ai',                                  review:null },
+    midjourney: { name:'Midjourney',     maker:'Midjourney',    tagline:'Best AI image generator for creative work',     score:9.2, free:false, freeTier:'No free tier',                price:'From $10/mo',       bestFor:'Concept art, illustrations, mood boards', ease:3, quality:5, value:4, pros:['Best image quality of any AI generator','Extremely creative and flexible','Active community'], cons:['No free tier','Requires Discord to use'],                                     href:'https://midjourney.com',                            review:null },
+    runway:     { name:'Runway',         maker:'Runway',        tagline:'AI video generation and editing',               score:8.6, free:true,  freeTier:'Limited free credits',        price:'Free / From $12/mo',bestFor:'AI video generation, video editing',        ease:3, quality:5, value:3, pros:['Best AI video quality available','Text-to-video generation','Professional editing tools'], cons:['Free credits run out fast','Steep learning curve'],                          href:'https://runwayml.com',                              review:null },
+    surferseo:  { name:'Surfer SEO',     maker:'Surfer',        tagline:'AI content optimization for SEO rankings',      score:8.3, free:false, freeTier:'No free tier',                price:'From $89/mo',       bestFor:'SEO content, keyword optimization',       ease:4, quality:4, value:3, pros:['Best SEO content optimization tool','Content editor with live scoring','Keyword research built in'], cons:['No free tier','Expensive for individuals'],                                 href:'https://surferseo.com',                             review:null },
+    copilot:    { name:'GitHub Copilot', maker:'GitHub',        tagline:'AI code completion inside your editor',         score:8.9, free:false, freeTier:'No free tier (student plan available)', price:'$10/mo',    bestFor:'Code completion, any language',           ease:5, quality:5, value:4, pros:['Best code completion available','Supports all major languages','Explains code inline'], cons:['Requires GitHub subscription','No free tier for most users'],                href:'https://github.com/features/copilot',              review:null },
+    cursor:     { name:'Cursor',         maker:'Cursor',        tagline:'AI-first code editor for full-file editing',    score:8.8, free:true,  freeTier:'2,000 completions/month',     price:'Free / $20/mo',     bestFor:'Building apps, editing full codebases',   ease:4, quality:5, value:4, pros:['Edit entire files with AI','Built on VS Code so familiar','Best for side projects'], cons:['Free tier is limited','Heavier than Copilot'],                                href:'https://cursor.sh',                                 review:null },
+  };
+
+  const POPULAR = [
+    ['chatgpt','rytr'],['chatgpt','quillbot'],['elevenlabs','murf'],
+    ['rytr','quillbot'],['synthesia','murf'],['elevenlabs','synthesia'],
+    ['chatgpt','perplexity'],['midjourney','canva'],['copilot','cursor'],
+    ['grammarly','quillbot'],['chatgpt','notionai'],['runway','synthesia'],
+  ];
+
+  function dots(n, max=5) {
+    return Array.from({length:max}, (_,i) =>
+      `<span class="dot${i<n?' filled':''}"></span>`
+    ).join('');
+  }
+
+  function populate() {
+    const opts = Object.entries(TOOLS)
+      .sort((a,b) => a[1].name.localeCompare(b[1].name))
+      .map(([k,t]) => `<option value="${k}">${t.name}</option>`)
+      .join('');
+    document.getElementById('toolA').innerHTML = '<option value="">Choose a tool...</option>' + opts;
+    document.getElementById('toolB').innerHTML = '<option value="">Choose a tool...</option>' + opts;
+
+    document.getElementById('suggestions').innerHTML = POPULAR.map(([a,b]) =>
+      `<span class="suggestion-pill" onclick="setPair('${a}','${b}')">${TOOLS[a].name} vs ${TOOLS[b].name}</span>`
+    ).join('');
+  }
+
+  function setPair(a, b) {
+    document.getElementById('toolA').value = a;
+    document.getElementById('toolB').value = b;
+    render();
+    window.scrollTo({top: 0, behavior:'smooth'});
+  }
+
+  function render() {
+    const aKey = document.getElementById('toolA').value;
+    const bKey = document.getElementById('toolB').value;
+    const result = document.getElementById('result');
+    const placeholder = document.getElementById('placeholder');
+
+    if (!aKey || !bKey || aKey === bKey) {
+      result.classList.remove('visible');
+      placeholder.style.display = '';
+      return;
+    }
+
+    const A = TOOLS[aKey], B = TOOLS[bKey];
+    placeholder.style.display = 'none';
+    result.classList.add('visible');
+
+    // Heads
+    document.getElementById('toolHeads').innerHTML = [A,B].map((t,i) => `
+      <div class="tool-head">
+        <div class="tool-head-name">${t.name}</div>
+        <div class="tool-head-tagline">${t.tagline}</div>
+        <div class="tool-head-score">${t.score}</div>
+        <div class="tool-head-score-label">/ 10</div>
+        <div><a href="${t.href}" target="_blank" rel="noopener noreferrer" class="tool-head-cta">Try ${t.name} &rarr;</a></div>
+        ${t.review ? `<div><a href="${t.review}" class="tool-head-review">Read full review &rarr;</a></div>` : ''}
+      </div>
+    `).join('');
+
+    // Table rows
+    const rows = [
+      { label: 'Score', aVal: `<strong style="color:#d0d0d0">${A.score} / 10</strong>`, bVal: `<strong style="color:#d0d0d0">${B.score} / 10</strong>`, winner: A.score > B.score ? 'a' : B.score > A.score ? 'b' : null },
+      { label: 'Free Tier', aVal: A.free ? `<span class="free-yes">Yes</span><br><span style="font-size:.8rem;color:#64748b">${A.freeTier}</span>` : `<span class="free-no">No</span>`, bVal: B.free ? `<span class="free-yes">Yes</span><br><span style="font-size:.8rem;color:#64748b">${B.freeTier}</span>` : `<span class="free-no">No</span>`, winner: null },
+      { label: 'Pricing', aVal: A.price, bVal: B.price, winner: null },
+      { label: 'Best For', aVal: A.bestFor, bVal: B.bestFor, winner: null },
+      { label: 'Ease of Use', aVal: `<div class="rating-dots">${dots(A.ease)}</div>`, bVal: `<div class="rating-dots">${dots(B.ease)}</div>`, winner: A.ease > B.ease ? 'a' : B.ease > A.ease ? 'b' : null },
+      { label: 'Output Quality', aVal: `<div class="rating-dots">${dots(A.quality)}</div>`, bVal: `<div class="rating-dots">${dots(B.quality)}</div>`, winner: A.quality > B.quality ? 'a' : B.quality > A.quality ? 'b' : null },
+      { label: 'Value', aVal: `<div class="rating-dots">${dots(A.value)}</div>`, bVal: `<div class="rating-dots">${dots(B.value)}</div>`, winner: A.value > B.value ? 'a' : B.value > A.value ? 'b' : null },
+      { label: 'Pros', aVal: A.pros.map(p=>`<div class="pro-item">${p}</div>`).join(''), bVal: B.pros.map(p=>`<div class="pro-item">${p}</div>`).join(''), winner: null },
+      { label: 'Cons', aVal: A.cons.map(c=>`<div class="con-item">${c}</div>`).join(''), bVal: B.cons.map(c=>`<div class="con-item">${c}</div>`).join(''), winner: null },
+    ];
+
+    document.getElementById('compareTable').innerHTML = rows.map(r => `
+      <tr>
+        <td>${r.label}</td>
+        <td class="${r.winner==='a'?'winner highlight-cell':''}">${r.aVal}</td>
+        <td class="${r.winner==='b'?'winner highlight-cell':''}">${r.bVal}</td>
+      </tr>
+    `).join('');
+  }
+
+  populate();
+
+  // Check URL params for pre-selected tools
+  const params = new URLSearchParams(location.search);
+  if (params.get('a') && params.get('b')) {
+    document.getElementById('toolA').value = params.get('a');
+    document.getElementById('toolB').value = params.get('b');
+    render();
+  }
+
+  const navToggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
+  navToggle.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMobile.classList.remove('open');
+    navToggle.classList.remove('open');
+    document.body.style.overflow = '';
+  }));
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => { btt.classList.toggle('visible', window.scrollY > 400); }, { passive:true });
+  btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  function getCookie(n){var v='; '+document.cookie,p=v.split('; '+n+'=');if(p.length===2)return p.pop().split(';').shift();}
+  function setCookie(n,v,d){var x=new Date();x.setTime(x.getTime()+(d*86400000));document.cookie=n+'='+v+';expires='+x.toUTCString()+';path=/;SameSite=Lax';}
+  function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookie-banner').style.display='none';loadAnalytics();}
+  function declineCookies(){setCookie('cookie_consent','declined',365);document.getElementById('cookie-banner').style.display='none';}
+  function loadAnalytics(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-QCSWNX897K';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-QCSWNX897K');}
+  window.showCookieConsent=function(){document.getElementById('cookie-banner').style.display='block';};
+  window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
+  </script>
+</body>
+</html>
