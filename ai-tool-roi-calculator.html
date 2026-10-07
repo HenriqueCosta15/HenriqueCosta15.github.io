@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Calculate whether an AI tool is worth the monthly cost. Enter your hourly rate, time spent, and tool price — get your exact ROI in seconds." />
+  <title>AI Tool ROI Calculator — Is It Worth It? | MyAIToolPick</title>
+  <link rel="canonical" href="https://myaitoolpick.com/ai-tool-roi-calculator.html" />
+  <meta property="og:title" content="AI Tool ROI Calculator — Is It Worth It? | MyAIToolPick" />
+  <meta property="og:url" content="https://myaitoolpick.com/ai-tool-roi-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MyAIToolPick" />
+  <meta property="og:description" content="Calculate whether an AI tool is worth the monthly cost. Enter your hourly rate, time spent, and tool price — get your exact ROI in seconds." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    .calc-wrap{max-width:680px;margin:0 auto;padding:80px 24px 80px}
+    .calc-hero{text-align:center;margin-bottom:48px}
+    .calc-hero h1{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+    .calc-hero p{font-size:1rem;color:#94a3b8;max-width:500px;margin:0 auto}
+    .calc-hero .badge{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;color:#d0d0d0;letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
+
+    .calc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px;margin-bottom:24px}
+    .calc-section-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:20px}
+
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+    .field{display:flex;flex-direction:column;gap:8px}
+    .field label{font-size:.82rem;font-weight:600;color:#94a3b8}
+    .field-input-wrap{display:flex;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;transition:border-color .15s}
+    .field-input-wrap:focus-within{border-color:rgba(255,255,255,.3)}
+    .field-prefix{padding:0 12px;font-size:.9rem;color:#64748b;font-weight:600;background:rgba(255,255,255,.04);border-right:1px solid rgba(255,255,255,.08);height:42px;display:flex;align-items:center}
+    .field-suffix{padding:0 12px;font-size:.82rem;color:#64748b;background:rgba(255,255,255,.04);border-left:1px solid rgba(255,255,255,.08);height:42px;display:flex;align-items:center;white-space:nowrap}
+    .field input{flex:1;background:transparent;border:none;color:#fff;font-size:.95rem;font-family:inherit;padding:0 14px;height:42px;outline:none;width:100%}
+    .field input::-webkit-inner-spin-button{opacity:.3}
+
+    .slider-wrap{margin-bottom:20px}
+    .slider-wrap label{font-size:.82rem;font-weight:600;color:#94a3b8;display:flex;justify-content:space-between;margin-bottom:10px}
+    .slider-wrap label span{color:#e2e8f0;font-weight:700}
+    input[type=range]{width:100%;appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,.1);outline:none;cursor:pointer}
+    input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:#d0d0d0;cursor:pointer;transition:background .15s}
+    input[type=range]::-webkit-slider-thumb:hover{background:#fff}
+
+    .calc-btn{width:100%;background:#d0d0d0;color:#111;font-weight:800;font-size:1rem;padding:14px;border-radius:12px;border:none;cursor:pointer;font-family:inherit;margin-top:8px;transition:background .15s}
+    .calc-btn:hover{background:#fff}
+
+    /* Result */
+    .result-card{display:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px;text-align:center}
+    .result-card.visible{display:block}
+    .result-verdict{font-size:1.1rem;font-weight:700;margin-bottom:24px;padding:14px 20px;border-radius:12px}
+    .verdict-yes{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:#4ade80}
+    .verdict-no{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);color:#f87171}
+    .verdict-borderline{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#fbbf24}
+
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+    .metric{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:18px 12px}
+    .metric-value{font-size:1.6rem;font-weight:800;color:#d0d0d0;line-height:1;margin-bottom:4px}
+    .metric-label{font-size:.72rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+    .metric.positive .metric-value{color:#4ade80}
+    .metric.negative .metric-value{color:#f87171}
+
+    .result-insight{font-size:.88rem;color:#94a3b8;line-height:1.7;margin-bottom:28px;text-align:left;background:rgba(255,255,255,.02);border-radius:10px;padding:16px 18px}
+    .result-tools{margin-top:4px}
+    .result-tools-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:14px}
+    .tool-recs{display:flex;flex-direction:column;gap:10px}
+    .tool-rec{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 16px;gap:12px;flex-wrap:wrap}
+    .tool-rec-name{font-size:.92rem;font-weight:700;color:#e2e8f0}
+    .tool-rec-desc{font-size:.78rem;color:#64748b;margin-top:2px}
+    .tool-rec-link{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:7px;padding:6px 14px;font-size:.76rem;font-weight:700;color:#d0d0d0;text-decoration:none;white-space:nowrap}
+    .tool-rec-link:hover{background:rgba(200,200,200,.18)}
+
+    .recalc-btn{margin-top:20px;font-size:.82rem;color:#475569;background:none;border:none;cursor:pointer;font-family:inherit}
+    .recalc-btn:hover{color:#94a3b8}
+
+    @media(max-width:520px){.field-row{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}}
+  </style>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://myaitoolpick.com/"},{"@type":"ListItem","position":2,"name":"AI Tool ROI Calculator","item":"https://myaitoolpick.com/ai-tool-roi-calculator.html"}]}
+  </script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","yt52m4dnf1");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3387137568498785" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+      <nav>
+        <a href="/reviews.html">Reviews</a>
+        <a href="/comparisons.html">Comparisons</a>
+        <a href="/compare-ai-tools.html" style="color:#d0d0d0;font-weight:600;">Compare</a>
+        <a href="/best.html">Best Lists</a>
+        <a href="/find-my-ai-tool.html" style="color:#d0d0d0;font-weight:600;">Tool Finder</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/reviews.html">Reviews <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/comparisons.html">Comparisons <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/compare-ai-tools.html" style="color:#d0d0d0;">Compare Tools <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/best.html">Best Lists <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/find-my-ai-tool.html" style="color:#d0d0d0;">Tool Finder <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="calc-hero">
+      <span class="badge">Free Calculator</span>
+      <h1>Is This AI Tool Worth It?</h1>
+      <p>Enter your numbers and find out exactly how much time and money an AI tool saves you each month.</p>
+    </div>
+
+    <div class="calc-card" id="calcForm">
+      <div class="calc-section-label">Your situation</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Your hourly rate</label>
+          <div class="field-input-wrap">
+            <span class="field-prefix">$</span>
+            <input type="number" id="hourlyRate" value="50" min="1" max="500" oninput="liveCalc()" />
+            <span class="field-suffix">/hr</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>AI tool monthly cost</label>
+          <div class="field-input-wrap">
+            <span class="field-prefix">$</span>
+            <input type="number" id="toolCost" value="20" min="1" max="500" oninput="liveCalc()" />
+            <span class="field-suffix">/mo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-wrap">
+        <label>Hours per week spent on this task <span id="hoursLabel">5 hrs</span></label>
+        <input type="range" id="hoursPerWeek" min="1" max="40" value="5" oninput="updateSlider('hoursPerWeek','hoursLabel',this.value+' hrs');liveCalc()" />
+      </div>
+
+      <div class="slider-wrap">
+        <label>How much time does AI save on this task? <span id="savingLabel">50%</span></label>
+        <input type="range" id="timeSaving" min="10" max="90" value="50" step="5" oninput="updateSlider('timeSaving','savingLabel',this.value+'%');liveCalc()" />
+      </div>
+
+      <button class="calc-btn" onclick="calculate()">Calculate my ROI &rarr;</button>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-verdict" id="verdict"></div>
+      <div class="metrics" id="metrics"></div>
+      <div class="result-insight" id="insight"></div>
+      <div class="result-tools" id="toolRecs"></div>
+      <button class="recalc-btn" onclick="recalc()">← Recalculate</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+          <p>We may earn commissions from links on this site. This doesn't affect our reviews. We only recommend tools we've actually tested.</p>
+          <div class="footer-badges">
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> No sponsored rankings</span>
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Hands-on tested</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Content</h4>
+          <a href="/reviews.html">All Reviews</a>
+          <a href="/comparisons.html">Comparisons</a>
+          <a href="/best.html">Best Lists</a>
+          <a href="/find-my-ai-tool.html" style="color:#d0d0d0;font-weight:600;">Tool Finder</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/about.html">About</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/disclaimer.html">Affiliate Disclaimer</a>
+          <a href="/terms.html">Terms of Use</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MyAIToolPick. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/imprint.html">Imprint</a>
+          <a href="/cookie-policy.html">Cookie Policy</a>
+          <a href="#" onclick="window.showCookieConsent&&window.showCookieConsent();return false;">Manage Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161616;border-top:1px solid #252525;padding:20px 24px;z-index:9999;">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div style="flex:1;min-width:260px;">
+        <p style="color:#F2F2F2;font-size:0.875rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
+        <p style="color:#7A7A7A;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#d0d0d0;">Cookie Policy</a> and <a href="/privacy.html" style="color:#d0d0d0;">Privacy Policy</a>.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid #252525;color:#7A7A7A;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:5px;cursor:pointer;">Decline</button>
+        <button onclick="acceptCookies()" style="background:#e8e8e8;border:none;color:#111;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:5px;cursor:pointer;">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const TOOL_RECS = [
+    { name:'Rytr', desc:'High-volume copy and content at the lowest price', href:'https://rytr.me/?via=henrique-costa', review:'/reviews/rytr.html' },
+    { name:'QuillBot', desc:'Rewrite, paraphrase, and polish any text faster', href:'https://try.quillbot.com/9eg3gltkginr', review:'/reviews/quillbot.html' },
+    { name:'ElevenLabs', desc:'AI voiceover at $5/month — unbeatable ROI for audio', href:'https://try.elevenlabs.io/os6073he74kz', review:'/reviews/elevenlabs.html' },
+    { name:'ChatGPT Plus', desc:'Best all-round AI at $20/month, used by millions', href:'https://chatgpt.com', review:null },
+    { name:'Murf AI', desc:'Professional voiceovers without a studio', href:'https://get.murf.ai/pcqp5r7kls5r', review:'/reviews/murf-ai.html' },
+  ];
+
+  function fmt(n) { return n >= 1000 ? '$' + (n/1000).toFixed(1) + 'k' : '$' + Math.round(n); }
+  function updateSlider(id, labelId, val) { document.getElementById(labelId).textContent = val; }
+
+  function getValues() {
+    return {
+      rate: parseFloat(document.getElementById('hourlyRate').value) || 50,
+      cost: parseFloat(document.getElementById('toolCost').value) || 20,
+      hours: parseFloat(document.getElementById('hoursPerWeek').value) || 5,
+      saving: parseFloat(document.getElementById('timeSaving').value) / 100 || 0.5,
+    };
+  }
+
+  function liveCalc() { /* just keeps sliders live */ }
+
+  function calculate() {
+    const { rate, cost, hours, saving } = getValues();
+    const hoursSavedPerWeek = hours * saving;
+    const hoursSavedPerMonth = hoursSavedPerWeek * 4.33;
+    const valueSavedPerMonth = hoursSavedPerMonth * rate;
+    const netSavings = valueSavedPerMonth - cost;
+    const roi = ((valueSavedPerMonth - cost) / cost) * 100;
+    const payback = cost / (valueSavedPerMonth / 30); // days to break even
+
+    document.getElementById('calcForm').style.display = 'none';
+    const rc = document.getElementById('resultCard');
+    rc.classList.add('visible');
+
+    // Verdict
+    let verdictClass, verdictText;
+    if (netSavings >= cost) {
+      verdictClass = 'verdict-yes';
+      verdictText = 'Yes, it is worth it. The numbers are clear.';
+    } else if (netSavings > 0) {
+      verdictClass = 'verdict-yes';
+      verdictText = 'Yes, it pays for itself — and then some.';
+    } else if (netSavings > -cost * 0.5) {
+      verdictClass = 'verdict-borderline';
+      verdictText = 'Borderline. It saves time but may not fully pay for itself.';
+    } else {
+      verdictClass = 'verdict-no';
+      verdictText = 'The math says no — but there may be non-financial value.';
+    }
+    document.getElementById('verdict').className = 'result-verdict ' + verdictClass;
+    document.getElementById('verdict').textContent = verdictText;
+
+    // Metrics
+    document.getElementById('metrics').innerHTML = `
+      <div class="metric ${valueSavedPerMonth > cost ? 'positive' : ''}">
+        <div class="metric-value">${fmt(valueSavedPerMonth)}</div>
+        <div class="metric-label">Time value saved/mo</div>
+      </div>
+      <div class="metric ${netSavings > 0 ? 'positive' : 'negative'}">
+        <div class="metric-value">${netSavings >= 0 ? '+' : ''}${fmt(netSavings)}</div>
+        <div class="metric-label">Net monthly gain</div>
+      </div>
+      <div class="metric ${roi > 0 ? 'positive' : 'negative'}">
+        <div class="metric-value">${roi > 0 ? '+' : ''}${Math.round(roi)}%</div>
+        <div class="metric-label">Monthly ROI</div>
+      </div>
+    `;
+
+    // Insight
+    const hrsSavedRounded = Math.round(hoursSavedPerMonth * 10) / 10;
+    document.getElementById('insight').innerHTML =
+      `Based on your numbers: at <strong style="color:#e2e8f0">$${rate}/hr</strong>, you spend <strong style="color:#e2e8f0">${hours} hours/week</strong> on this task. ` +
+      `An AI tool saving <strong style="color:#e2e8f0">${Math.round(saving*100)}%</strong> of that time gives you back <strong style="color:#e2e8f0">${hrsSavedRounded} hours/month</strong> — ` +
+      `worth <strong style="color:#e2e8f0">${fmt(valueSavedPerMonth)}</strong> at your rate. The tool costs <strong style="color:#e2e8f0">$${cost}/month</strong>. ` +
+      (netSavings > 0
+        ? `That is a net gain of <strong style="color:#4ade80">${fmt(netSavings)}/month</strong> — or <strong style="color:#4ade80">${fmt(netSavings * 12)}/year</strong>.`
+        : `You are spending more than you save in direct time value. That said, quality improvements and reduced stress are real but harder to quantify.`);
+
+    // Tool recs
+    const shuffle = [...TOOL_RECS].sort(() => Math.random() - 0.5).slice(0, 3);
+    document.getElementById('toolRecs').innerHTML = `
+      <div class="result-tools-label">Tools worth trying at this price point</div>
+      <div class="tool-recs">
+        ${shuffle.map(t => `
+          <div class="tool-rec">
+            <div>
+              <div class="tool-rec-name">${t.name}</div>
+              <div class="tool-rec-desc">${t.desc}</div>
+            </div>
+            <a href="${t.href}" target="_blank" rel="noopener noreferrer" class="tool-rec-link">Try free &rarr;</a>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function recalc() {
+    document.getElementById('calcForm').style.display = 'block';
+    document.getElementById('resultCard').classList.remove('visible');
+  }
+
+  const navToggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
+  navToggle.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMobile.classList.remove('open'); navToggle.classList.remove('open'); document.body.style.overflow = '';
+  }));
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => { btt.classList.toggle('visible', window.scrollY > 400); }, { passive:true });
+  btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  function getCookie(n){var v='; '+document.cookie,p=v.split('; '+n+'=');if(p.length===2)return p.pop().split(';').shift();}
+  function setCookie(n,v,d){var x=new Date();x.setTime(x.getTime()+(d*86400000));document.cookie=n+'='+v+';expires='+x.toUTCString()+';path=/;SameSite=Lax';}
+  function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookie-banner').style.display='none';loadAnalytics();}
+  function declineCookies(){setCookie('cookie_consent','declined',365);document.getElementById('cookie-banner').style.display='none';}
+  function loadAnalytics(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-QCSWNX897K';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-QCSWNX897K');}
+  window.showCookieConsent=function(){document.getElementById('cookie-banner').style.display='block';};
+  window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
+  </script>
+</body>
+</html>

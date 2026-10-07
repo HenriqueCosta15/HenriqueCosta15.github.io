@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build your personal AI tool stack. Pick up to 4 tools, see your total monthly cost, and share your stack on LinkedIn or Twitter." />
+  <title>My AI Stack Builder — Build and Share Your AI Setup | MyAIToolPick</title>
+  <link rel="canonical" href="https://myaitoolpick.com/my-ai-stack.html" />
+  <meta property="og:title" content="My AI Stack Builder | MyAIToolPick" />
+  <meta property="og:url" content="https://myaitoolpick.com/my-ai-stack.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MyAIToolPick" />
+  <meta property="og:description" content="Build your personal AI tool stack. Pick up to 4 tools, see your total monthly cost, and share your stack." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <style>
+    .stack-wrap{max-width:720px;margin:0 auto;padding:80px 24px 80px}
+    .stack-hero{text-align:center;margin-bottom:48px}
+    .stack-hero h1{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+    .stack-hero p{font-size:1rem;color:#94a3b8;max-width:500px;margin:0 auto}
+    .stack-hero .badge{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;color:#d0d0d0;letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
+
+    .stack-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:32px;margin-bottom:20px}
+    .section-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:18px}
+
+    /* Tool grid */
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+    .tool-chip{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:border-color .15s,background .15s;user-select:none}
+    .tool-chip:hover{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+    .tool-chip.selected{border-color:rgba(209,213,219,.5);background:rgba(209,213,219,.08)}
+    .tool-chip.selected .chip-name{color:#fff}
+    .tool-chip.disabled{opacity:.35;cursor:not-allowed}
+    .chip-name{font-size:.88rem;font-weight:700;color:#94a3b8;transition:color .15s}
+    .chip-role{font-size:.72rem;color:#475569}
+    .chip-price{font-size:.7rem;color:#64748b;margin-top:2px}
+
+    /* Stack summary */
+    .stack-summary{display:none}
+    .stack-summary.visible{display:block}
+    .selected-tools{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+    .selected-tool-row{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 16px}
+    .st-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.08);font-size:.76rem;font-weight:700;color:#94a3b8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .st-info{flex:1}
+    .st-name{font-size:.92rem;font-weight:700;color:#e2e8f0}
+    .st-role{font-size:.76rem;color:#64748b;margin-top:2px}
+    .st-price{font-size:.82rem;font-weight:700;color:#94a3b8;white-space:nowrap;flex-shrink:0}
+    .st-link{display:inline-block;background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:7px;padding:5px 12px;font-size:.74rem;font-weight:700;color:#d0d0d0;text-decoration:none;white-space:nowrap;flex-shrink:0}
+    .st-link:hover{background:rgba(200,200,200,.18)}
+
+    .cost-bar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 22px;margin-bottom:22px}
+    .cost-label{font-size:.82rem;font-weight:600;color:#64748b}
+    .cost-value{font-size:1.5rem;font-weight:800;color:#d0d0d0}
+    .cost-breakdown{font-size:.72rem;color:#475569;margin-top:2px}
+    .cost-right{text-align:right}
+    .cost-annual{font-size:.8rem;color:#64748b}
+    .cost-annual strong{color:#94a3b8}
+
+    .share-section{margin-top:4px}
+    .share-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:12px}
+    .share-url-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .share-url-box{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;font-size:.8rem;color:#64748b;font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+    .copy-btn{background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.2);border-radius:8px;padding:9px 16px;font-size:.8rem;font-weight:700;color:#d0d0d0;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s}
+    .copy-btn:hover{background:rgba(200,200,200,.2)}
+    .copy-btn.copied{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.3);color:#4ade80}
+
+    .share-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .share-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;border:1px solid;transition:background .15s;cursor:pointer;font-family:inherit}
+    .share-btn-tw{background:rgba(29,161,242,.1);border-color:rgba(29,161,242,.25);color:#60b8f7}
+    .share-btn-tw:hover{background:rgba(29,161,242,.18)}
+    .share-btn-li{background:rgba(10,102,194,.1);border-color:rgba(10,102,194,.3);color:#69a9e8}
+    .share-btn-li:hover{background:rgba(10,102,194,.2)}
+
+    .clear-btn{margin-top:16px;font-size:.8rem;color:#475569;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+    .clear-btn:hover{color:#94a3b8}
+
+    /* Hint */
+    .hint{text-align:center;padding:20px;font-size:.85rem;color:#475569}
+
+    @media(max-width:500px){.tools-grid{grid-template-columns:repeat(2,1fr)}.share-url-row{flex-direction:column}}
+  </style>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://myaitoolpick.com/"},{"@type":"ListItem","position":2,"name":"AI Stack Builder","item":"https://myaitoolpick.com/my-ai-stack.html"}]}
+  </script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","yt52m4dnf1");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3387137568498785" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+      <nav>
+        <a href="/reviews.html">Reviews</a>
+        <a href="/comparisons.html">Comparisons</a>
+        <a href="/compare-ai-tools.html" style="color:#d0d0d0;font-weight:600;">Compare</a>
+        <a href="/best.html">Best Lists</a>
+        <a href="/find-my-ai-tool.html" style="color:#d0d0d0;font-weight:600;">Tool Finder</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/reviews.html">Reviews <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/comparisons.html">Comparisons <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/compare-ai-tools.html" style="color:#d0d0d0;">Compare Tools <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/best.html">Best Lists <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <a href="/find-my-ai-tool.html" style="color:#d0d0d0;">Tool Finder <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </div>
+
+  <div class="stack-wrap">
+    <div class="stack-hero">
+      <span class="badge">Free Tool</span>
+      <h1>Build Your AI Stack</h1>
+      <p>Pick up to 4 tools, see your total monthly cost, and share your stack with the world.</p>
+    </div>
+
+    <div class="stack-card">
+      <div class="section-label">Pick your tools <span id="countLabel" style="color:#94a3b8;font-weight:700;text-transform:none;letter-spacing:0;font-size:.8rem;">— 0 of 4 selected</span></div>
+      <div class="tools-grid" id="toolsGrid"></div>
+    </div>
+
+    <div class="stack-summary" id="stackSummary">
+      <div class="stack-card">
+        <div class="section-label">Your stack</div>
+        <div class="selected-tools" id="selectedTools"></div>
+        <div class="cost-bar">
+          <div>
+            <div class="cost-label">Total monthly cost</div>
+            <div class="cost-breakdown" id="costBreakdown"></div>
+          </div>
+          <div class="cost-right">
+            <div class="cost-value" id="totalCost"></div>
+            <div class="cost-annual" id="annualCost"></div>
+          </div>
+        </div>
+        <div class="share-section">
+          <div class="share-label">Share your stack</div>
+          <div class="share-url-row">
+            <div class="share-url-box" id="shareUrl"></div>
+            <button class="copy-btn" id="copyBtn" onclick="copyUrl()">Copy link</button>
+          </div>
+          <div class="share-btns">
+            <button class="share-btn share-btn-tw" onclick="shareTwitter()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Post on X
+            </button>
+            <button class="share-btn share-btn-li" onclick="shareLinkedIn()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              Share on LinkedIn
+            </button>
+          </div>
+        </div>
+        <button class="clear-btn" onclick="clearAll()">← Start over</button>
+      </div>
+    </div>
+
+    <div class="hint" id="hint">Select 1 to 4 tools above to build your stack.</div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-dot"></span>MyAIToolPick</a>
+          <p>We may earn commissions from links on this site. This doesn't affect our reviews. We only recommend tools we've actually tested.</p>
+          <div class="footer-badges">
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> No sponsored rankings</span>
+            <span class="footer-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Hands-on tested</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Content</h4>
+          <a href="/reviews.html">All Reviews</a>
+          <a href="/comparisons.html">Comparisons</a>
+          <a href="/best.html">Best Lists</a>
+          <a href="/find-my-ai-tool.html" style="color:#d0d0d0;font-weight:600;">Tool Finder</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/about.html">About</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/disclaimer.html">Affiliate Disclaimer</a>
+          <a href="/terms.html">Terms of Use</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MyAIToolPick. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/imprint.html">Imprint</a>
+          <a href="/cookie-policy.html">Cookie Policy</a>
+          <a href="#" onclick="window.showCookieConsent&&window.showCookieConsent();return false;">Manage Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161616;border-top:1px solid #252525;padding:20px 24px;z-index:9999;">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div style="flex:1;min-width:260px;">
+        <p style="color:#F2F2F2;font-size:0.875rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
+        <p style="color:#7A7A7A;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#d0d0d0;">Cookie Policy</a> and <a href="/privacy.html" style="color:#d0d0d0;">Privacy Policy</a>.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <button onclick="declineCookies()" style="background:transparent;border:1px solid #252525;color:#7A7A7A;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:5px;cursor:pointer;">Decline</button>
+        <button onclick="acceptCookies()" style="background:#e8e8e8;border:none;color:#111;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:5px;cursor:pointer;">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const TOOLS = [
+    { id:'chatgpt',    name:'ChatGPT Plus',  role:'Writing & thinking', price:20, free:true,  href:'https://chatgpt.com',                          review:null },
+    { id:'rytr',       name:'Rytr',          role:'Content writing',    price:9,  free:true,  href:'https://rytr.me/?via=henrique-costa',           review:'/reviews/rytr.html' },
+    { id:'quillbot',   name:'QuillBot',      role:'Paraphrasing',       price:10, free:true,  href:'https://try.quillbot.com/9eg3gltkginr',         review:'/reviews/quillbot.html' },
+    { id:'elevenlabs', name:'ElevenLabs',    role:'AI voiceover',       price:5,  free:true,  href:'https://try.elevenlabs.io/os6073he74kz',        review:'/reviews/elevenlabs.html' },
+    { id:'murf',       name:'Murf AI',       role:'Voice & audio',      price:29, free:false, href:'https://get.murf.ai/pcqp5r7kls5r',              review:'/reviews/murf-ai.html' },
+    { id:'synthesia',  name:'Synthesia',     role:'AI video',           price:29, free:false, href:'https://www.synthesia.io/?via=henrique-costa',  review:'/reviews/synthesia.html' },
+    { id:'grammarly',  name:'Grammarly',     role:'Grammar & editing',  price:12, free:true,  href:'https://www.grammarly.com',                     review:'/reviews/grammarly.html' },
+    { id:'canva',      name:'Canva AI',      role:'Design',             price:15, free:true,  href:'https://www.canva.com',                         review:null },
+    { id:'perplexity', name:'Perplexity',    role:'AI research',        price:20, free:true,  href:'https://www.perplexity.ai',                     review:null },
+    { id:'notionai',   name:'Notion AI',     role:'Notes & docs',       price:10, free:false, href:'https://www.notion.so',                         review:null },
+    { id:'otterai',    name:'Otter.ai',      role:'Meeting notes',      price:17, free:true,  href:'https://otter.ai',                              review:null },
+    { id:'midjourney', name:'Midjourney',    role:'AI images',          price:10, free:false, href:'https://www.midjourney.com',                    review:null },
+    { id:'runway',     name:'Runway',        role:'AI video editing',   price:15, free:true,  href:'https://runwayml.com',                          review:null },
+    { id:'surferseo',  name:'Surfer SEO',    role:'SEO writing',        price:89, free:false, href:'https://surferseo.com',                         review:null },
+    { id:'copilot',    name:'GitHub Copilot',role:'AI coding',          price:10, free:false, href:'https://github.com/features/copilot',           review:null },
+    { id:'cursor',     name:'Cursor',        role:'AI code editor',     price:20, free:true,  href:'https://cursor.sh',                             review:null },
+  ];
+
+  const MAX = 4;
+  let selected = [];
+
+  function init() {
+    const grid = document.getElementById('toolsGrid');
+    grid.innerHTML = TOOLS.map(t => `
+      <div class="tool-chip" id="chip-${t.id}" onclick="toggle('${t.id}')">
+        <span class="chip-name">${t.name}</span>
+        <span class="chip-role">${t.role}</span>
+        <span class="chip-price">${t.free ? 'Free tier + ' : ''}$${t.price}/mo</span>
+      </div>
+    `).join('');
+
+    // Load from URL params
+    const params = new URLSearchParams(window.location.search);
+    const toolsParam = params.get('tools');
+    if (toolsParam) {
+      const ids = toolsParam.split(',').filter(id => TOOLS.find(t => t.id === id));
+      ids.slice(0, MAX).forEach(id => {
+        selected.push(id);
+      });
+      render();
+    }
+  }
+
+  function toggle(id) {
+    const idx = selected.indexOf(id);
+    if (idx > -1) {
+      selected.splice(idx, 1);
+    } else {
+      if (selected.length >= MAX) return;
+      selected.push(id);
+    }
+    render();
+  }
+
+  function render() {
+    // Update chips
+    TOOLS.forEach(t => {
+      const chip = document.getElementById('chip-' + t.id);
+      const isSel = selected.includes(t.id);
+      const isFull = selected.length >= MAX && !isSel;
+      chip.className = 'tool-chip' + (isSel ? ' selected' : '') + (isFull ? ' disabled' : '');
+    });
+
+    document.getElementById('countLabel').textContent = `— ${selected.length} of ${MAX} selected`;
+
+    const summary = document.getElementById('stackSummary');
+    const hint = document.getElementById('hint');
+
+    if (selected.length === 0) {
+      summary.classList.remove('visible');
+      hint.style.display = 'block';
+      updateUrl([]);
+      return;
+    }
+
+    hint.style.display = 'none';
+    summary.classList.add('visible');
+
+    const tools = selected.map(id => TOOLS.find(t => t.id === id));
+    const total = tools.reduce((s, t) => s + t.price, 0);
+
+    // Selected tools list
+    document.getElementById('selectedTools').innerHTML = tools.map((t, i) => `
+      <div class="selected-tool-row">
+        <div class="st-num">${i + 1}</div>
+        <div class="st-info">
+          <div class="st-name">${t.name}</div>
+          <div class="st-role">${t.role}${t.free ? ' · Free tier available' : ''}</div>
+        </div>
+        <div class="st-price">$${t.price}/mo</div>
+        <a href="${t.href}" target="_blank" rel="noopener noreferrer" class="st-link">Try free &rarr;</a>
+      </div>
+    `).join('');
+
+    // Cost bar
+    document.getElementById('totalCost').textContent = '$' + total + '/mo';
+    document.getElementById('costBreakdown').textContent = tools.map(t => t.name).join(' + ');
+    document.getElementById('annualCost').innerHTML = `<strong>$${total * 12}/year</strong> billed monthly`;
+
+    // Share URL
+    const url = updateUrl(selected);
+    document.getElementById('shareUrl').textContent = url;
+  }
+
+  function updateUrl(ids) {
+    const base = 'https://myaitoolpick.com/my-ai-stack.html';
+    const url = ids.length ? base + '?tools=' + ids.join(',') : base;
+    history.replaceState(null, '', ids.length ? '?tools=' + ids.join(',') : window.location.pathname);
+    return url;
+  }
+
+  function copyUrl() {
+    const url = document.getElementById('shareUrl').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy link'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function shareTwitter() {
+    const tools = selected.map(id => TOOLS.find(t => t.id === id));
+    const names = tools.map(t => t.name).join(', ');
+    const total = tools.reduce((s, t) => s + t.price, 0);
+    const url = document.getElementById('shareUrl').textContent;
+    const text = `My AI stack: ${names} — $${total}/mo total. Build yours:`;
+    window.open('https://x.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank');
+  }
+
+  function shareLinkedIn() {
+    const url = document.getElementById('shareUrl').textContent;
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank');
+  }
+
+  function clearAll() {
+    selected = [];
+    render();
+  }
+
+  init();
+
+  const navToggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
+  navToggle.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMobile.classList.remove('open'); navToggle.classList.remove('open'); document.body.style.overflow = '';
+  }));
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => { btt.classList.toggle('visible', window.scrollY > 400); }, { passive:true });
+  btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  function getCookie(n){var v='; '+document.cookie,p=v.split('; '+n+'=');if(p.length===2)return p.pop().split(';').shift();}
+  function setCookie(n,v,d){var x=new Date();x.setTime(x.getTime()+(d*86400000));document.cookie=n+'='+v+';expires='+x.toUTCString()+';path=/;SameSite=Lax';}
+  function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookie-banner').style.display='none';loadAnalytics();}
+  function declineCookies(){setCookie('cookie_consent','declined',365);document.getElementById('cookie-banner').style.display='none';}
+  function loadAnalytics(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-QCSWNX897K';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-QCSWNX897K');}
+  window.showCookieConsent=function(){document.getElementById('cookie-banner').style.display='block';};
+  window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
+  </script>
+</body>
+</html>
