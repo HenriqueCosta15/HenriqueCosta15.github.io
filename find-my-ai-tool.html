@@ -131,6 +131,16 @@
           <span class="label">Professional</span>
           <span class="sub">HR, legal, finance, healthcare</span>
         </div>
+        <div class="choice-card" onclick="pickRole('agency')">
+          <span class="icon">🏢</span>
+          <span class="label">Agency Owner</span>
+          <span class="sub">Marketing, creative, or design agency</span>
+        </div>
+        <div class="choice-card" onclick="pickRole('journalist')">
+          <span class="icon">📰</span>
+          <span class="label">Journalist / Researcher</span>
+          <span class="sub">Reporting, writing, fact-checking</span>
+        </div>
       </div>
     </div>
 
@@ -261,7 +271,19 @@
         { label: 'HR and recruiting',        sub: 'Job posts, onboarding, training', key: 'pro_hr' },
         { label: 'Legal work',               sub: 'Contracts, research, briefs',     key: 'pro_legal' },
         { label: 'Finance tasks',            sub: 'Reports, summaries, analysis',    key: 'pro_finance' },
+        { label: 'Healthcare',               sub: 'Clinical docs, patient comms',    key: 'pro_health' },
         { label: 'Real estate',              sub: 'Listings, emails, proposals',     key: 'pro_realestate' },
+      ],
+      agency: [
+        { label: 'Scale content production', sub: 'Blogs, emails, social, ads',      key: 'agency_content' },
+        { label: 'Win more pitches',         sub: 'Concepts, visuals, decks',        key: 'agency_pitch' },
+        { label: 'Produce client videos',    sub: 'Explainers, training, ads',       key: 'agency_video' },
+        { label: 'SEO for clients',          sub: 'Keywords, optimization, copy',    key: 'agency_seo' },
+      ],
+      journalist: [
+        { label: 'Research and fact-check',  sub: 'Sources, citations, background',  key: 'jour_research' },
+        { label: 'Write faster',             sub: 'Articles, reports, summaries',    key: 'jour_write' },
+        { label: 'Transcribe interviews',    sub: 'Meetings, calls, recordings',     key: 'jour_transcribe' },
       ],
     };
 
@@ -287,6 +309,14 @@
       pro_legal:        { title: 'Best AI Tools for Lawyers', desc: 'Research, summarize case law, and draft clearer documents. A solid legal AI toolkit with important caveats.', list: '/best/best-ai-tools-for-lawyers.html', tools: ['quillbot','perplexity','otterai'] },
       pro_finance:      { title: 'Best AI Tools for Finance Professionals', desc: 'Summarize reports, draft analysis, and automate routine document work while keeping sensitive data secure.', list: '/best/best-ai-tools-for-finance.html', tools: ['chatgpt','quillbot','otterai'] },
       pro_realestate:   { title: 'Best AI Tools for Real Estate Agents', desc: 'Write listing descriptions, draft client emails, and generate market reports in minutes.', list: '/best/best-ai-tools-for-real-estate.html', tools: ['chatgpt','rytr','quillbot'] },
+      pro_health:       { title: 'Best AI Tools for Healthcare Professionals', desc: 'Cut documentation time, improve patient communications, and stay current on research. Includes HIPAA guidance.', list: '/best/best-ai-tools-for-healthcare.html', tools: ['chatgpt','otterai','quillbot'] },
+      agency_content:   { title: 'Best AI Tools for Agencies', desc: 'Scale content production across multiple clients without growing headcount. Covers copy, design, voice, and video.', list: '/best/best-ai-tools-for-agencies.html', tools: ['rytr','quillbot','chatgpt'] },
+      agency_pitch:     { title: 'Best AI Tools for Agencies', desc: 'Win more pitches with AI-generated concept visuals, campaign ideas, and polished presentation content.', list: '/best/best-ai-tools-for-agencies.html', tools: ['midjourney','chatgpt','canva'] },
+      agency_video:     { title: 'Best AI Tools for Agencies', desc: 'Produce presenter-style explainer and training videos for clients without camera, talent, or studio.', list: '/best/best-ai-tools-for-agencies.html', tools: ['synthesia','elevenlabs','runway'] },
+      agency_seo:       { title: 'Best AI SEO Tools', desc: 'Research keywords, optimize content briefs, and rank client sites faster with AI-powered SEO tools.', list: '/best/best-ai-seo-tools.html', tools: ['surferseo','chatgpt','quillbot'] },
+      jour_research:    { title: 'Best AI Tools for Journalists', desc: 'Verify facts, surface background context, and find sources faster with AI research tools built for accuracy.', list: '/best/best-ai-tools-for-journalists.html', tools: ['perplexity','chatgpt','otterai'] },
+      jour_write:       { title: 'Best AI Tools for Journalists', desc: 'Draft faster, cut writer\'s block, and polish your prose without losing your voice.', list: '/best/best-ai-tools-for-journalists.html', tools: ['chatgpt','quillbot','rytr'] },
+      jour_transcribe:  { title: 'Best AI Tools for Journalists', desc: 'Transcribe interviews and press conferences automatically with speaker labels and searchable text.', list: '/best/best-ai-tools-for-journalists.html', tools: ['otterai','chatgpt','quillbot'] },
     };
 
     // ── STATE ─────────────────────────────────────────────────────────────────
