@@ -1,4 +1,4 @@
-/* v4 */
+/* v5 */
 /* === FONTS === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -1125,3 +1125,16 @@ nav a.nav-active {
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* === SCORE BREAKDOWN === */
+.score-breakdown { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; }
+.score-breakdown-title { font-size: .85rem; font-weight: 700; color: #d0d0d0; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+.score-breakdown-link { font-size: .78rem; font-weight: 400; color: #64748b; text-decoration: none; }
+.score-breakdown-link:hover { color: #94a3b8; }
+.sb-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.sb-row:last-child { margin-bottom: 0; }
+.sb-label { font-size: .8rem; color: #94a3b8; width: 160px; flex-shrink: 0; }
+.sb-weight { color: #475569; }
+.sb-bar { flex: 1; height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+.sb-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); border-radius: 3px; }
+.sb-val { font-size: .8rem; color: #d0d0d0; font-weight: 600; width: 28px; text-align: right; flex-shrink: 0; }
