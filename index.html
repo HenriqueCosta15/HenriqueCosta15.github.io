@@ -1130,5 +1130,24 @@
   window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
 </script>
 
+  <script>
+  function submitBrevo(e, form) {
+    e.preventDefault();
+    var email = form.querySelector('[name="EMAIL"]').value;
+    var data = new FormData();
+    data.append('EMAIL', email);
+    data.append('email_address_check', '');
+    data.append('locale', 'en');
+    fetch('https://87f531f0.sibforms.com/serve/MUIFABEFZtp6Ev2aYTPOdR3LUsEWU5lMPpH_SnUp3qR4lqSNjBiGulQ2CCuC0AOJXPaC_5yfRFyOnHOwD86boC4_3f6tUMx-itGZhCsLzrMyCS_GtDIEmmWKCiIiDBTh_fllqQRc36TbtSFSag-OTp9IjFFB8G7mpwkXzN-vPTk4zQDtMlNbjlzHZ-BN6C_LStt90F1KDC8Dx2HwOw==', { method:'POST', body:data, mode:'no-cors' })
+      .then(function(){
+        document.getElementById('sib-success').style.display='block';
+        document.getElementById('sib-error').style.display='none';
+        form.reset();
+      })
+      .catch(function(){
+        document.getElementById('sib-error').style.display='block';
+      });
+  }
+  </script>
 </body>
 </html>
