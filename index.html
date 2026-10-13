@@ -22,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,8 +30,8 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: #161616;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: #111111;
       color: #a0a0a0;
       font-size: 16px;
       line-height: 1.6;
@@ -46,9 +46,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(22,22,22,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: #111111;
       border-bottom: 1px solid #282828;
     }
 
@@ -177,10 +175,11 @@
     }
 
     .hero-copy h1 {
+      font-family: 'Lora', Georgia, serif;
       font-size: clamp(2.25rem, 5vw, 3.25rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      color: #e8e8e8;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #EFEFEF;
       line-height: 1.15;
       text-wrap: balance;
     }
@@ -231,124 +230,6 @@
 
     .btn-primary:hover { background: #f4f4f4; }
 
-    /* MEDIA PANEL */
-    .hero-media {
-      width: 100%;
-      margin-top: 52px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid #2a2a2a;
-      position: relative;
-      min-height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(180deg, #1a2332 0%, #0d1520 60%, #080e18 100%);
-    }
-
-    .hero-media-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
-      pointer-events: none;
-    }
-
-    .review-card {
-      position: relative;
-      z-index: 1;
-      background: #1e2530;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 24px;
-      max-width: 440px;
-      width: calc(100% - 48px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
-      margin: 40px 24px;
-    }
-
-    .review-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .review-card-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: #e8e8e8;
-    }
-
-    .review-card-score {
-      font-size: 15px;
-      font-weight: 600;
-      color: #e8e8e8;
-    }
-
-    .review-card-stars {
-      font-size: 16px;
-      color: #f59e0b;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
-
-    .review-card-pill {
-      display: inline-block;
-      padding: 3px 10px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px;
-      font-size: 12px;
-      color: #a0a0a0;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-
-    .review-card-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.08);
-      margin-bottom: 16px;
-    }
-
-    .review-card-verdicts {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .verdict-row {
-      display: flex;
-      gap: 8px;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .verdict-icon {
-      flex-shrink: 0;
-      font-style: normal;
-      font-weight: 600;
-      width: 16px;
-    }
-
-    .verdict-icon.yes { color: #4ade80; }
-    .verdict-icon.no  { color: #f87171; }
-
-    .verdict-label { color: #888; }
-    .verdict-value { color: #c0c0c0; font-weight: 500; }
-
-    .review-card-link {
-      font-size: 13px;
-      font-weight: 600;
-      color: #a0c4ff;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.15s;
-    }
-
-    .review-card-link:hover { color: #c0d8ff; }
-
     /* LOGO STRIP */
     .logo-strip {
       max-width: 1100px;
@@ -395,10 +276,11 @@
     }
 
     .section-header h2 {
+      font-family: 'Lora', Georgia, serif;
       font-size: 1.5rem;
-      font-weight: 600;
-      color: #e8e8e8;
-      letter-spacing: -0.02em;
+      font-weight: 700;
+      color: #EFEFEF;
+      letter-spacing: -0.01em;
     }
 
     .view-all {
@@ -500,10 +382,15 @@
       gap: 16px;
       padding: 18px 0;
       border-bottom: 1px solid #222;
-      transition: opacity 0.15s;
+      transition: background 0.15s;
+      border-radius: 4px;
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
-    .list-row:hover { opacity: 0.8; }
+    .list-row:hover { background: #1A1A1A; }
+    .list-row:hover .list-row-title { color: #EFEFEF; }
+    .list-row:hover .list-row-arrow { color: #AAAAAA; }
 
     .list-row-title {
       font-size: 15px;
@@ -537,12 +424,15 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 18px 0;
+      padding: 18px 8px;
       border-bottom: 1px solid #242424;
-      transition: opacity 0.15s;
+      transition: background 0.15s;
+      border-radius: 4px;
     }
 
-    .comparison-row:hover { opacity: 0.8; }
+    .comparison-row:hover { background: #1A1A1A; }
+    .comparison-row:hover .comparison-name { color: #EFEFEF; }
+    .comparison-row:hover .comparison-row-arrow { color: #AAAAAA; }
 
     .comparison-names {
       display: flex;
@@ -683,18 +573,6 @@
     #back-to-top.visible { opacity: 1; pointer-events: auto; }
     #back-to-top:hover { background: #282828; }
 
-    /* FADE IN */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
-
     /* RESPONSIVE */
     @media (max-width: 800px) {
       .card-grid { grid-template-columns: repeat(2, 1fr); }
@@ -752,7 +630,7 @@
 <section>
   <div class="hero">
 
-    <div class="hero-copy fade-in">
+    <div class="hero-copy">
       <h1>Find the right AI tool.</h1>
       <p>Honest reviews and real comparisons, no hype, no paid rankings. We've tested 27+ AI tools so you don't have to.</p>
       <div class="hero-ctas">
@@ -761,35 +639,7 @@
       </div>
     </div>
 
-    <div class="hero-media fade-in">
-      <div class="hero-media-overlay"></div>
-      <a href="/reviews/elevenlabs.html" class="review-card">
-        <div class="review-card-header">
-          <span class="review-card-name">ElevenLabs</span>
-          <span class="review-card-score">4.7 / 5</span>
-        </div>
-        <div class="review-card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="review-card-pill">Voice AI &middot; from $5/mo</div>
-        <div class="review-card-divider"></div>
-        <div class="review-card-verdicts">
-          <div class="verdict-row">
-            <span class="verdict-icon yes">&#10003;</span>
-            <span><span class="verdict-label">Best for: </span><span class="verdict-value">Podcasters, video creators, audiobooks</span></span>
-          </div>
-          <div class="verdict-row">
-            <span class="verdict-icon yes">&#10003;</span>
-            <span><span class="verdict-label">Standout: </span><span class="verdict-value">Most natural voices we tested at any price</span></span>
-          </div>
-          <div class="verdict-row">
-            <span class="verdict-icon no">&#10007;</span>
-            <span><span class="verdict-label">Skip if: </span><span class="verdict-value">You only need occasional voiceover</span></span>
-          </div>
-        </div>
-        <span class="review-card-link">Read Full Review &#8594;</span>
-      </a>
-    </div>
-
-    <div class="logo-strip fade-in" style="width:100%">
+    <div class="logo-strip" style="width:100%">
       <p class="logo-strip-label">Tools we've reviewed</p>
       <div class="logo-strip-names">
         <span>ChatGPT</span>
@@ -815,13 +665,13 @@
 <!-- FREE TOOLS -->
 <section class="section" style="background:#161616;">
   <div class="section-inner">
-    <div class="section-header fade-in">
+    <div class="section-header">
       <div>
         <h2>Tools We Built</h2>
         <p style="font-size:.88rem;color:#475569;margin-top:6px;font-weight:400;">Free tools made by us to help you pick, compare, and justify AI tools — not tools we review.</p>
       </div>
     </div>
-    <div class="card-grid fade-in" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+    <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
       <a href="/find-my-ai-tool.html" class="tool-card">
         <div class="tool-card-top"><span class="category-pill" style="background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);">&#9733; Made by us</span></div>
         <h3>AI Tool Finder</h3>
@@ -853,13 +703,13 @@
 <!-- REVIEWS -->
 <section class="section reviews-section">
   <div class="section-inner">
-    <div class="section-header fade-in">
+    <div class="section-header">
       <h2>Top AI Tool Reviews</h2>
       <a href="/reviews.html" class="view-all">View all &#8594;</a>
     </div>
     <div class="card-grid">
 
-      <a href="/reviews/jasper.html" class="tool-card fade-in">
+      <a href="/reviews/jasper.html" class="tool-card">
         <div class="tool-card-top">
           <span class="category-pill">Writing</span>
           <span class="tool-score">&#9733; 4.0</span>
@@ -869,7 +719,7 @@
         <span class="read-link">Read Review &#8594;</span>
       </a>
 
-      <a href="/reviews/grammarly.html" class="tool-card fade-in">
+      <a href="/reviews/grammarly.html" class="tool-card">
         <div class="tool-card-top">
           <span class="category-pill">Editing</span>
           <span class="tool-score">&#9733; 4.3</span>
@@ -879,7 +729,7 @@
         <span class="read-link">Read Review &#8594;</span>
       </a>
 
-      <a href="/reviews/chatgpt.html" class="tool-card fade-in">
+      <a href="/reviews/chatgpt.html" class="tool-card">
         <div class="tool-card-top">
           <span class="category-pill">Chat AI</span>
           <span class="tool-score">&#9733; 4.6</span>
@@ -889,7 +739,7 @@
         <span class="read-link">Read Review &#8594;</span>
       </a>
 
-      <a href="/reviews/claude.html" class="tool-card fade-in">
+      <a href="/reviews/claude.html" class="tool-card">
         <div class="tool-card-top">
           <span class="category-pill">Chat AI</span>
           <span class="tool-score">&#9733; 4.6</span>
@@ -899,7 +749,7 @@
         <span class="read-link">Read Review &#8594;</span>
       </a>
 
-      <a href="/reviews/writesonic.html" class="tool-card fade-in">
+      <a href="/reviews/writesonic.html" class="tool-card">
         <div class="tool-card-top">
           <span class="category-pill">Writing</span>
           <span class="tool-score">&#9733; 3.7</span>
@@ -909,7 +759,7 @@
         <span class="read-link">Read Review &#8594;</span>
       </a>
 
-      <a href="/reviews/surfer-seo.html" class="tool-card fade-in">
+      <a href="/reviews/surfer-seo.html" class="tool-card">
         <div class="tool-card-top">
           <span class="category-pill">SEO</span>
           <span class="tool-score">&#9733; 3.9</span>
@@ -926,11 +776,11 @@
 <!-- BEST LISTS -->
 <section class="section lists-section">
   <div class="section-inner">
-    <div class="section-header fade-in">
+    <div class="section-header">
       <h2>Best AI Tools By Category</h2>
       <a href="/best.html" class="view-all">View all &#8594;</a>
     </div>
-    <div class="lists-grid fade-in">
+    <div class="lists-grid">
 
       <a href="/best/ai-writing-tools.html" class="list-row">
         <div>
@@ -995,11 +845,11 @@
 <!-- COMPARISONS -->
 <section class="section comparisons-section">
   <div class="section-inner">
-    <div class="section-header fade-in">
+    <div class="section-header">
       <h2>AI Tool Comparisons</h2>
       <a href="/comparisons.html" class="view-all">View all &#8594;</a>
     </div>
-    <div class="comparisons-grid fade-in">
+    <div class="comparisons-grid">
 
       <a href="/comparisons/claude-vs-chatgpt.html" class="comparison-row">
         <div class="comparison-names">
@@ -1127,7 +977,7 @@
 <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:1px solid #282828;padding:20px 24px;z-index:9999;">
   <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
     <div style="flex:1;min-width:260px;">
-      <p style="color:#e0e0e0;font-size:0.875rem;margin:0 0 4px;font-weight:600;font-family:'Inter',sans-serif;">We use cookies</p>
+      <p style="color:#e0e0e0;font-size:0.875rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
       <p style="color:#606060;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#a0a0a0;">Cookie Policy</a> and <a href="/privacy.html" style="color:#a0a0a0;">Privacy Policy</a>.</p>
     </div>
     <div style="display:flex;gap:10px;flex-shrink:0;">
@@ -1151,15 +1001,6 @@
       hamburger.setAttribute('aria-expanded', false);
     });
   });
-
-  // Fade-in on scroll
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  fadeEls.forEach(el => observer.observe(el));
 
   // Back to top
   const btt = document.getElementById('back-to-top');
