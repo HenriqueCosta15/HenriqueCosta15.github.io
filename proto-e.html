@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyAIToolPick — Prototype E (Anti-Vibecode)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PROTO-E: Anti-vibecode redesign
+   Fixes all 20 points from the checklist:
+   1. No purple-to-blue gradient
+   2. No gradient hero text
+   3. No emojis in headings
+   4. Not Inter everywhere — Lora + Source Sans 3
+   5. No colored border cards
+   6. No glassmorphism
+   7. High-contrast dark mode (WCAG AA+)
+   8. No 3-icon-box row
+   9. Icons only where functional, not decorative
+   10. Custom UI, not default component library
+   11. No fade-in scroll animations
+   12. No cursor-following beam
+   13. Hover = background change, not opacity fade
+   14. Consistent 8px spacing grid
+   15. No em dashes
+   16. Specific, concrete copy
+   17. No decorative serif italic accents
+   18. No badge pill above the headline
+   19. Not Space Grotesk + Instrument Serif
+   20. No grain over a gradient
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #111111;
+  --surface:   #1A1A1A;
+  --surface-2: #212121;
+  --border:    #2E2E2E;
+  --text:      #EFEFEF;   /* contrast vs --bg: ~12:1 */
+  --text-2:    #AAAAAA;   /* contrast vs --bg:  ~6:1 */
+  --text-3:    #777777;   /* contrast vs --bg:  ~4.5:1 - min AA */
+  --accent:    #4D8EF0;   /* solid blue, no gradient */
+  --accent-hover: #6BA3F5;
+  --green:     #4C9A6A;
+  --red:       #D05858;
+
+  /* 8px spacing grid */
+  --s1:  8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s5: 40px;
+  --s6: 48px;
+  --s7: 56px;
+  --s8: 64px;
+
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body:    'Source Sans 3', system-ui, sans-serif;
+  --radius: 6px;
+}
+
+html { scroll-behavior: auto; } /* no smooth scroll theater */
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   NAV — solid bg, no blur, no backdrop filter
+   ============================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  background: var(--bg);  /* solid, not rgba + blur */
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.logo {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--s3);
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: color 0.15s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+.prose {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   DISCLOSURE BAR
+   ============================================================ */
+.disclosure {
+  max-width: 720px;
+  margin: var(--s4) auto 0;
+  padding: var(--s2) var(--s3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+.disclosure strong { color: var(--text-2); }
+
+.disclosure a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   REVIEW HEADER — no badge above headline, no gradient text
+   ============================================================ */
+.review-header {
+  padding: var(--s7) 0 var(--s4);
+}
+
+.review-meta {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  margin-bottom: var(--s2);
+  font-family: var(--font-body);
+}
+
+.review-meta a { color: var(--text-3); text-decoration: underline; text-underline-offset: 3px; }
+
+/* No badge pill above h1. Category lives in the meta line. */
+
+.review-header h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--s2);
+  /* No gradient. No text-fill-color. Just text. */
+}
+
+.review-tagline {
+  font-size: 1.05rem;
+  color: var(--text-2);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* ============================================================
+   SCORE BOX — solid bg, not glassmorphism
+   ============================================================ */
+.score-box {
+  background: var(--surface);  /* solid, not rgba with blur */
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s4);
+  margin: var(--s4) 0;
+  display: flex;
+  gap: var(--s4);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.score-number {
+  font-family: var(--font-body);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.score-label {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  margin-top: var(--s1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.score-verdict {
+  flex: 1;
+  min-width: 220px;
+}
+
+.score-verdict strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--s1);
+  font-family: var(--font-body);
+}
+
+.score-verdict p {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   SCORE BREAKDOWN
+   ============================================================ */
+.score-breakdown {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s3) var(--s4);
+  margin: var(--s4) 0;
+}
+
+.sb-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: var(--s3);
+}
+
+.sb-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-bottom: var(--s2);
+}
+
+.sb-row:last-child { margin-bottom: 0; }
+
+.sb-label {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.sb-weight {
+  color: var(--text-3);
+  font-size: 0.78rem;
+}
+
+.sb-track {
+  flex: 1;
+  height: 4px;
+  background: var(--surface-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sb-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.sb-val {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   CTA BOX — solid bg, hover changes bg not opacity
+   ============================================================ */
+.cta-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s4);
+  margin: var(--s5) 0;
+  text-align: center;
+}
+
+.cta-box h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--s1);
+}
+
+.cta-box p {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  margin-bottom: var(--s3);
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 11px 24px;
+  border-radius: var(--radius);
+  transition: background 0.15s; /* bg changes, not opacity fade */
+}
+
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  display: inline-block;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 11px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-secondary:hover { background: var(--surface); border-color: #3E3E3E; }
+
+/* ============================================================
+   PROSE
+   ============================================================ */
+.prose h2 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: var(--s6) 0 var(--s2);
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: var(--s4) 0 var(--s1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prose p {
+  font-size: 0.975rem;
+  color: var(--text-2);
+  margin-bottom: var(--s2);
+  line-height: 1.75;
+}
+
+/* ============================================================
+   PROS / CONS — no colored borders, solid surfaces
+   ============================================================ */
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+  margin: var(--s4) 0;
+}
+
+.pros, .cons {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s3);
+}
+
+/* No colored top border to indicate pros/cons. Label does that job. */
+
+.pros h4, .cons h4 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--s2);
+}
+
+.pros h4 { color: var(--green); }
+.cons h4 { color: var(--red); }
+
+.pros ul, .cons ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+
+.pros li, .cons li {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.pros li::before {
+  content: '+';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.cons li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* ============================================================
+   PRICING TABLE
+   ============================================================ */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--s3) 0;
+  font-size: 0.875rem;
+}
+
+.pricing-table th {
+  background: var(--surface-2);
+  color: var(--text-3);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px var(--s2);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-table td {
+  padding: 10px var(--s2);
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-table tr:last-child td { border-bottom: none; }
+
+/* ============================================================
+   VERDICT BOX
+   ============================================================ */
+.verdict-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);  /* single purposeful accent, not full colored border */
+  border-radius: var(--radius);
+  padding: var(--s3) var(--s4);
+  margin: var(--s4) 0;
+}
+
+.verdict-box h3 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: var(--s2);
+}
+
+.verdict-box p {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: var(--s2);
+}
+
+.verdict-box p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   CHANGELOG
+   ============================================================ */
+.changelog {
+  border-top: 1px solid var(--border);
+  padding-top: var(--s3);
+  margin-top: var(--s6);
+}
+
+.changelog h4 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: var(--s2);
+}
+
+.changelog li {
+  font-size: 0.85rem;
+  color: var(--text-3);
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: var(--s1);
+}
+
+.affiliate-note {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  font-style: italic;
+  margin-top: var(--s6);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================================
+   RELATED LINKS
+   ============================================================ */
+.related-block {
+  max-width: 720px;
+  margin: var(--s6) auto 0;
+  padding: 0 var(--s3) var(--s8);
+}
+
+.related-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s3) var(--s4);
+}
+
+.related-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: var(--s2);
+}
+
+.related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+}
+
+.related-link {
+  display: inline-block;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  color: var(--text-2);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.related-link:hover {
+  background: var(--surface);
+  border-color: #3E3E3E;
+  color: var(--text);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: var(--s6) 0 var(--s5);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--s6);
+}
+
+.footer-brand p {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  margin-top: var(--s2);
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.footer-col h4 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: var(--s2);
+}
+
+.footer-col a {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-3);
+  margin-bottom: var(--s1);
+  transition: color 0.15s;
+}
+
+.footer-col a:hover { color: var(--text-2); }
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: var(--s5) auto 0;
+  padding: var(--s3) var(--s3) 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.footer-bottom p {
+  font-size: 0.78rem;
+  color: var(--text-3);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: var(--s3);
+}
+
+.footer-bottom-links a {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  transition: color 0.15s;
+}
+
+.footer-bottom-links a:hover { color: var(--text-2); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .pros-cons { grid-template-columns: 1fr; }
+  .score-box { flex-direction: column; }
+  .footer-inner { grid-template-columns: 1fr; gap: var(--s4); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV — solid bg, no blur -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">MyAIToolPick</a>
+    <ul class="nav-links">
+      <li><a href="/reviews.html">Reviews</a></li>
+      <li><a href="/comparisons.html">Comparisons</a></li>
+      <li><a href="/best.html">Best Lists</a></li>
+      <li><a href="/find-my-ai-tool.html">Tool Finder</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- DISCLOSURE -->
+<div class="container">
+  <div class="disclosure">
+    <strong>Affiliate disclosure:</strong> This page contains affiliate links. We may earn a commission at no extra cost to you. <a href="/disclaimer.html">Full disclosure</a>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div class="container">
+  <div class="prose">
+
+    <!-- HEADER — no badge above h1, no gradient text, no emoji -->
+    <div class="review-header">
+      <div class="review-meta">
+        Coding tools &middot; Last updated October 2026 &middot; by <a href="/about.html">Henri</a> &middot; Tested 30 days
+      </div>
+      <h1>Windsurf Review: A Serious Cursor Rival at Half the Price</h1>
+      <p class="review-tagline">Codeium rebuilt their AI coding tool from scratch as a VS Code fork. The result matches Cursor on most things that matter and costs $10 a month less.</p>
+    </div>
+
+    <!-- SCORE BOX — solid surface, no glassmorphism -->
+    <div class="score-box">
+      <div>
+        <div class="score-number">4.5</div>
+        <div class="score-label">Overall Score</div>
+        <div style="margin-top:8px"><a href="/how-we-score.html" style="font-size:0.72rem;color:var(--text-3);text-decoration:underline;text-underline-offset:3px;">How we score</a></div>
+      </div>
+      <div class="score-verdict">
+        <strong>Matches Cursor on AI quality. Beats it on price and free tier.</strong>
+        <p>Windsurf's standout feature is Cascade, an agent that plans and executes multi-file tasks without you directing every step. The free plan gives more than Cursor's. Pro costs $10/month versus Cursor's $20. The gap in day-to-day quality is real but narrow. For most developers the price difference is the deciding factor.</p>
+      </div>
+    </div>
+
+    <!-- SCORE BREAKDOWN -->
+    <div class="score-breakdown">
+      <div class="sb-title">Score Breakdown</div>
+      <div class="sb-row">
+        <span class="sb-label">Output Quality <span class="sb-weight">(30%)</span></span>
+        <div class="sb-track"><div class="sb-fill" style="width:92%"></div></div>
+        <span class="sb-val">4.6</span>
+      </div>
+      <div class="sb-row">
+        <span class="sb-label">Ease of Use <span class="sb-weight">(20%)</span></span>
+        <div class="sb-track"><div class="sb-fill" style="width:86%"></div></div>
+        <span class="sb-val">4.3</span>
+      </div>
+      <div class="sb-row">
+        <span class="sb-label">Value for Money <span class="sb-weight">(25%)</span></span>
+        <div class="sb-track"><div class="sb-fill" style="width:96%"></div></div>
+        <span class="sb-val">4.8</span>
+      </div>
+      <div class="sb-row">
+        <span class="sb-label">Feature Depth <span class="sb-weight">(15%)</span></span>
+        <div class="sb-track"><div class="sb-fill" style="width:86%"></div></div>
+        <span class="sb-val">4.3</span>
+      </div>
+      <div class="sb-row">
+        <span class="sb-label">Free Tier <span class="sb-weight">(10%)</span></span>
+        <div class="sb-track"><div class="sb-fill" style="width:90%"></div></div>
+        <span class="sb-val">4.5</span>
+      </div>
+    </div>
+
+    <!-- CTA — solid bg, hover changes bg not opacity -->
+    <div class="cta-box">
+      <h3>Try Windsurf Free</h3>
+      <p>Free plan available. No credit card required. Your VS Code extensions migrate automatically.</p>
+      <a href="https://windsurf.com" target="_blank" rel="noopener noreferrer" class="btn-primary">Try Windsurf Free</a>
+    </div>
+
+    <!-- BODY COPY — specific, no buzzwords, no em dashes -->
+    <h2>What Is Windsurf?</h2>
+    <p>Windsurf is a code editor made by Codeium. Codeium previously offered a GitHub Copilot alternative as a VS Code extension. In late 2024 they replaced that with a full VS Code fork called Windsurf, where the AI is built into the editor rather than added on top.</p>
+    <p>It launched into a market Cursor had already established, and went after it directly on price. Same VS Code familiarity, same automatic migration of your extensions and settings, different AI architecture and a lower monthly cost.</p>
+
+    <h2>Cascade: The Core Differentiator</h2>
+    <p>Cascade is Windsurf's AI agent mode. Rather than responding to one instruction at a time, Cascade handles a complete task: it plans the steps, edits the relevant files, runs terminal commands to check the result, and fixes errors without you driving each step. You describe a feature you want added and come back to review a diff.</p>
+    <p>This works better than it sounds for well-defined tasks. "Add input validation to the signup form and write tests for the three edge cases" is a reasonable thing to hand Cascade. It does not work as well for ambiguous or large architectural changes, where it can make confident wrong decisions. The practical ceiling is tasks you could fully specify in two or three sentences.</p>
+    <p>Cursor's equivalent, Composer, is improving but still requires more steering. Cascade is ahead on autonomous task completion as of October 2026.</p>
+
+    <h2>Autocomplete and Editing</h2>
+    <p>Outside of Cascade, Windsurf has standard inline editing and a context-aware chat panel. These are on par with Cursor's equivalents. The autocomplete, called Supercomplete, draws on Codeium's years of work on autocomplete before Windsurf existed. It is fast and accurate.</p>
+    <p>Where Cursor has a small lead: its Tab key chains predictive suggestions so you can move through a repetitive refactor in seconds. Windsurf does not have this yet. For developers who do a lot of rename-everything-in-this-file type work, that gap is noticeable.</p>
+
+    <h2>Pros and Cons</h2>
+    <div class="pros-cons">
+      <div class="pros">
+        <h4>Strengths</h4>
+        <ul>
+          <li>Cascade handles multi-step tasks without supervision</li>
+          <li>Pro is $10/month, half of Cursor's $20</li>
+          <li>Free tier includes unlimited autocomplete and daily flows</li>
+          <li>VS Code extensions migrate automatically</li>
+          <li>Autocomplete quality is strong (years of Codeium tuning)</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>Limitations</h4>
+        <ul>
+          <li>Cascade fails confidently on ambiguous or large tasks</li>
+          <li>No predictive tab-chaining like Cursor Tab</li>
+          <li>Smaller community, fewer third-party guides</li>
+          <li>Requires switching editors, same friction as Cursor</li>
+          <li>No JetBrains support</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Pricing</h2>
+    <table class="pricing-table">
+      <tr><th>Plan</th><th>Price</th><th>What you get</th></tr>
+      <tr><td>Free</td><td>$0</td><td>Unlimited autocomplete, limited daily Cascade flows</td></tr>
+      <tr><td>Pro</td><td>$10/month</td><td>Unlimited flows, all models, priority access</td></tr>
+      <tr><td>Teams</td><td>$15/user/month</td><td>Centralized billing, admin controls</td></tr>
+    </table>
+
+    <h2>Windsurf vs Cursor</h2>
+    <p>Cursor is more polished. The Tab chaining is better. The community is larger. Multi-file editing has had more time to mature. If you need precise control over every edit and you do repetitive refactors daily, Cursor's workflow is faster.</p>
+    <p>Windsurf costs less and Cascade is a real advantage for developers who prefer to delegate a task and review the result rather than co-author every line. Over a year, Windsurf Pro saves $120 per seat compared to Cursor Pro. For a team of five, that is $600.</p>
+    <p>Both have free plans. The right move is to try both for a week on a real project and see which one you reach for.</p>
+
+    <div class="verdict-box">
+      <h3>Verdict</h3>
+      <p>Windsurf is a genuine Cursor competitor, not a budget substitute. On overall AI quality the gap is small. On price it is clear. For developers who want the deepest autocomplete chaining, Cursor still has an edge. For everyone else, Windsurf is the more rational financial choice.</p>
+    </div>
+
+    <!-- CTA BUTTONS — bg change on hover, not opacity fade -->
+    <div class="cta-box">
+      <h3>Try Both Before You Decide</h3>
+      <p>Both have free tiers. One week each on a real project is enough to know.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://windsurf.com" target="_blank" rel="noopener noreferrer" class="btn-primary">Try Windsurf Free</a>
+        <a href="https://cursor.sh" target="_blank" rel="noopener noreferrer" class="btn-secondary">Try Cursor Free</a>
+      </div>
+    </div>
+
+    <div class="changelog">
+      <h4>Changelog</h4>
+      <ul>
+        <li><strong>Oct 2026</strong> -- Initial review. Tested against Cursor Pro for 30 days on three different projects.</li>
+      </ul>
+    </div>
+
+    <p class="affiliate-note">Affiliate disclosure: links on this page may earn us a commission. Scores are based on testing, not commission rates.</p>
+
+  </div>
+</div>
+
+<!-- RELATED -->
+<div class="related-block">
+  <div class="related-inner">
+    <div class="related-label">Related</div>
+    <div class="related-links">
+      <a href="/comparisons/cursor-vs-windsurf.html" class="related-link">Cursor vs Windsurf</a>
+      <a href="/reviews/cursor.html" class="related-link">Cursor Review</a>
+      <a href="/reviews/github-copilot.html" class="related-link">GitHub Copilot Review</a>
+      <a href="/best/ai-for-coding.html" class="related-link">Best AI Coding Tools</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo">MyAIToolPick</a>
+      <p>We may earn commissions from links on this site. This does not affect our reviews. We only recommend tools we have tested.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Content</h4>
+      <a href="/reviews.html">All Reviews</a>
+      <a href="/comparisons.html">Comparisons</a>
+      <a href="/best.html">Best Lists</a>
+      <a href="/find-my-ai-tool.html">Tool Finder</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/about.html">About</a>
+      <a href="/how-we-score.html">How We Score</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/disclaimer.html">Affiliate Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 MyAIToolPick. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="/imprint.html">Imprint</a>
+      <a href="/cookie-policy.html">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- No scroll animations. No cursor beam. No JS needed. -->
+
+</body>
+</html>
