@@ -6,7 +6,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --color-bg: #161616;
+  --color-bg: #111111;
   --color-surface: #1a1a1a;
   --color-surface-2: #1e1e1e;
   --color-surface-3: #242424;

@@ -26,13 +26,27 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg:       #111111;
+      --surface:  #1A1A1A;
+      --surface2: #212121;
+      --border:   #2E2E2E;
+      --text:     #EFEFEF;
+      --text-2:   #AAAAAA;
+      --text-3:   #666666;
+      --accent:   #4D8EF0;
+      --accent-h: #6BA3F5;
+      --font-h: 'Lora', Georgia, serif;
+      --font-b: 'Source Sans 3', system-ui, sans-serif;
+      --r: 6px;
+    }
 
     body {
-      font-family: 'Source Sans 3', system-ui, sans-serif;
-      background: #111111;
-      color: #a0a0a0;
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -46,228 +60,247 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: #111111;
-      border-bottom: 1px solid #282828;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 24px;
-      height: 60px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
     }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .logo {
+      font-family: var(--font-b);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
       flex-shrink: 0;
-    }
-
-    .nav-logo-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #e0e0e0;
-      flex-shrink: 0;
-    }
-
-    .nav-logo-text {
-      font-size: 15px;
-      font-weight: 600;
-      color: #e0e0e0;
-      letter-spacing: -0.01em;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 32px;
       list-style: none;
     }
 
     .nav-links a {
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 500;
-      color: #888;
+      color: var(--text-2);
       transition: color 0.15s;
     }
 
-    .nav-links a:hover { color: #e0e0e0; }
+    .nav-links a:hover { color: var(--text); }
 
     .nav-cta {
-      display: inline-flex;
-      align-items: center;
+      display: inline-block;
       padding: 7px 16px;
-      background: #e0e0e0;
-      color: #111;
-      font-size: 13px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      font-size: 0.8rem;
       font-weight: 600;
-      border-radius: 100px;
-      transition: background 0.15s;
+      color: var(--text);
+      transition: background 0.15s, border-color 0.15s;
       flex-shrink: 0;
     }
 
-    .nav-cta:hover { background: #f0f0f0; }
+    .nav-cta:hover { background: var(--surface); border-color: #3E3E3E; }
 
     .nav-hamburger {
       display: none;
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      padding: 4px;
       background: none;
       border: none;
+      padding: 4px;
     }
 
     .nav-hamburger span {
       display: block;
-      width: 22px;
+      width: 20px;
       height: 2px;
-      background: #e0e0e0;
-      border-radius: 2px;
+      background: var(--text);
+      border-radius: 1px;
       transition: all 0.2s;
     }
 
     .nav-mobile {
       display: none;
       flex-direction: column;
-      gap: 0;
-      border-top: 1px solid #282828;
+      border-top: 1px solid var(--border);
       padding: 12px 24px 16px;
     }
 
     .nav-mobile.open { display: flex; }
 
     .nav-mobile a {
-      font-size: 15px;
+      font-size: 0.925rem;
       font-weight: 500;
-      color: #888;
+      color: var(--text-2);
       padding: 10px 0;
-      border-bottom: 1px solid #282828;
+      border-bottom: 1px solid var(--border);
       transition: color 0.15s;
     }
 
     .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: #e0e0e0; }
+    .nav-mobile a:hover { color: var(--text); }
+
+    /* LAYOUT */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
     /* HERO */
     .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 88px 24px 96px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .hero-copy {
-      max-width: 640px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 64px;
+      align-items: start;
     }
 
-    .hero-copy h1 {
-      font-family: 'Lora', Georgia, serif;
-      font-size: clamp(2.25rem, 5vw, 3.25rem);
+    .hero-body h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2rem, 4.5vw, 3rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
-      color: #EFEFEF;
+      color: var(--text);
       line-height: 1.15;
-      text-wrap: balance;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
     }
 
-    .hero-copy p {
-      font-size: 17px;
-      color: #a0a0a0;
-      max-width: 480px;
-      text-wrap: balance;
-      line-height: 1.65;
+    .hero-body p {
+      font-size: 1.05rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 32px;
     }
 
     .hero-ctas {
       display: flex;
-      align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 4px;
     }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 20px;
-      border: 1px solid #3a3a3a;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #c0c0c0;
-      background: transparent;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .btn-outline:hover { border-color: #606060; color: #e8e8e8; }
 
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 20px;
-      background: #e8e8e8;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #111;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 11px 24px;
+      border-radius: var(--r);
       transition: background 0.15s;
     }
 
-    .btn-primary:hover { background: #f4f4f4; }
+    .btn-primary:hover { background: var(--accent-h); }
 
-    /* LOGO STRIP */
-    .logo-strip {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 24px 0;
-      border-top: 1px solid #2a2a2a;
+    .btn-ghost {
+      display: inline-block;
+      background: transparent;
+      color: var(--text-2);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 11px 24px;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .logo-strip-label {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 500;
-      color: #484848;
+    .btn-ghost:hover { background: var(--surface); border-color: #3E3E3E; color: var(--text); }
+
+    .hero-strip {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-strip-label {
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 16px;
+      color: var(--text-3);
+      margin-bottom: 12px;
     }
 
-    .logo-strip-names {
+    .hero-strip-names {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 8px 24px;
     }
 
-    .logo-strip-names span {
-      font-size: 13px;
+    .hero-strip-names span {
+      font-size: 0.825rem;
       font-weight: 600;
-      color: #606060;
-      white-space: nowrap;
+      color: var(--text-3);
     }
 
-    /* SECTIONS SHARED */
-    .section { padding: 72px 24px; }
+    /* HERO RIGHT: Recently Updated */
+    .hero-recent {
+      padding-top: 4px;
+    }
 
-    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .hero-recent-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+      margin-bottom: 16px;
+    }
 
-    .section-header {
+    .recent-item {
+      display: flex;
+      flex-direction: column;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.15s;
+    }
+
+    .recent-item:first-of-type { border-top: 1px solid var(--border); }
+    .recent-item:hover { border-color: #3E3E3E; }
+    .recent-item:hover .recent-name { color: var(--text); }
+
+    .recent-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-2);
+      margin-bottom: 2px;
+      transition: color 0.15s;
+    }
+
+    .recent-meta {
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-alt { background: var(--surface); }
+
+    .section-head {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
@@ -275,27 +308,66 @@
       gap: 16px;
     }
 
-    .section-header h2 {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 1.5rem;
+    .section-head h2 {
+      font-family: var(--font-h);
+      font-size: 1.35rem;
       font-weight: 700;
-      color: #EFEFEF;
+      color: var(--text);
       letter-spacing: -0.01em;
     }
 
     .view-all {
-      font-size: 13px;
-      font-weight: 500;
-      color: #606060;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-3);
       white-space: nowrap;
       transition: color 0.15s;
     }
 
-    .view-all:hover { color: #a0a0a0; }
+    .view-all:hover { color: var(--text-2); }
 
-    /* REVIEWS SECTION */
-    .reviews-section { background: #1a1a1a; }
+    /* TOOLS WE BUILT: two-column hairline list */
+    .tools-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 48px;
+    }
 
+    .tools-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.15s;
+    }
+
+    .tools-row:hover { border-color: #3E3E3E; }
+    .tools-row:hover .tools-name { color: var(--text); }
+    .tools-row:hover .tools-arrow { color: var(--text-2); }
+
+    .tools-name {
+      font-size: 0.925rem;
+      font-weight: 600;
+      color: var(--text-2);
+      margin-bottom: 2px;
+      transition: color 0.15s;
+    }
+
+    .tools-desc {
+      font-size: 0.78rem;
+      color: var(--text-3);
+    }
+
+    .tools-arrow {
+      font-size: 1rem;
+      color: var(--text-3);
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+
+    /* REVIEW CARDS */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -303,76 +375,69 @@
     }
 
     .tool-card {
-      background: #1e1e1e;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       transition: border-color 0.15s;
     }
 
-    .tool-card:hover { border-color: #3a3a3a; }
+    .tool-card:hover { border-color: #3E3E3E; }
 
-    .tool-card-top {
+    .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
     }
 
-    .category-pill {
-      display: inline-block;
-      padding: 3px 10px;
-      background: #242424;
-      border: 1px solid #2a2a2a;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 500;
-      color: #888;
+    .card-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-3);
     }
 
-    .tool-score {
-      font-size: 13px;
-      font-weight: 600;
-      color: #c0c0c0;
+    .card-score {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
     }
 
     .tool-card h3 {
-      font-size: 16px;
-      font-weight: 600;
-      color: #e8e8e8;
-      letter-spacing: -0.01em;
+      font-family: var(--font-h);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 4px;
     }
 
     .tool-card p {
-      font-size: 13px;
-      color: #808080;
-      line-height: 1.55;
+      font-size: 0.875rem;
+      color: var(--text-2);
+      line-height: 1.6;
       flex: 1;
     }
 
-    .read-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: #606060;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .card-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-3);
       margin-top: 4px;
       transition: color 0.15s;
+      display: inline-block;
     }
 
-    .read-link:hover { color: #a0a0a0; }
+    .card-link:hover { color: var(--text-2); }
 
-    /* BEST LISTS SECTION */
-    .lists-section { background: #161616; }
-
+    /* BEST LISTS */
     .lists-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0 40px;
+      gap: 0 48px;
     }
 
     .list-row {
@@ -380,185 +445,267 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid #222;
-      transition: background 0.15s;
-      border-radius: 4px;
-      padding-left: 8px;
-      padding-right: 8px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.15s;
     }
 
-    .list-row:hover { background: #1A1A1A; }
-    .list-row:hover .list-row-title { color: #EFEFEF; }
-    .list-row:hover .list-row-arrow { color: #AAAAAA; }
+    .list-row:hover { border-color: #3E3E3E; }
+    .list-row:hover .list-title { color: var(--text); }
+    .list-row:hover .list-arrow { color: var(--text-2); }
 
-    .list-row-title {
-      font-size: 15px;
+    .list-title {
+      font-size: 0.925rem;
       font-weight: 600;
-      color: #d0d0d0;
+      color: var(--text-2);
       margin-bottom: 2px;
+      transition: color 0.15s;
     }
 
-    .list-row-desc {
-      font-size: 13px;
-      color: #606060;
+    .list-desc {
+      font-size: 0.78rem;
+      color: var(--text-3);
     }
 
-    .list-row-arrow {
-      font-size: 18px;
-      color: #484848;
+    .list-arrow {
+      font-size: 1rem;
+      color: var(--text-3);
       flex-shrink: 0;
+      transition: color 0.15s;
     }
 
-    /* COMPARISONS SECTION */
-    .comparisons-section { background: #1a1a1a; }
-
-    .comparisons-grid {
+    /* COMPARISONS */
+    .comp-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0 40px;
+      gap: 0 48px;
     }
 
-    .comparison-row {
+    .comp-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 18px 8px;
-      border-bottom: 1px solid #242424;
-      transition: background 0.15s;
-      border-radius: 4px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.15s;
     }
 
-    .comparison-row:hover { background: #1A1A1A; }
-    .comparison-row:hover .comparison-name { color: #EFEFEF; }
-    .comparison-row:hover .comparison-row-arrow { color: #AAAAAA; }
+    .comp-row:hover { border-color: #3E3E3E; }
+    .comp-row:hover .comp-a,
+    .comp-row:hover .comp-b { color: var(--text); }
+    .comp-row:hover .comp-arrow { color: var(--text-2); }
 
-    .comparison-names {
+    .comp-names {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .comparison-name {
-      font-size: 15px;
+    .comp-a, .comp-b {
+      font-size: 0.925rem;
       font-weight: 600;
-      color: #d0d0d0;
+      color: var(--text-2);
+      transition: color 0.15s;
     }
 
-    .comparison-vs {
-      font-size: 11px;
-      font-weight: 500;
-      color: #484848;
+    .comp-vs {
+      font-size: 0.7rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      color: var(--text-3);
     }
 
-    .comparison-row-arrow {
-      font-size: 18px;
-      color: #484848;
+    .comp-arrow {
+      font-size: 1rem;
+      color: var(--text-3);
       flex-shrink: 0;
+      transition: color 0.15s;
+    }
+
+    /* NEWSLETTER INLINE */
+    .newsletter {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .newsletter-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-copy {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .newsletter-copy h3 {
+      font-family: var(--font-h);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .newsletter-copy p {
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .newsletter-form input[type="email"] {
+      width: 240px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 0.875rem;
+      font-family: var(--font-b);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .newsletter-form input[type="email"]:focus { border-color: #3E3E3E; }
+    .newsletter-form input[type="email"]::placeholder { color: var(--text-3); }
+
+    .newsletter-form button {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 10px 20px;
+      border-radius: var(--r);
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-b);
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .newsletter-form button:hover { background: var(--accent-h); }
+
+    #sib-success { font-size: 0.875rem; color: #4C9A6A; margin-top: 8px; display: none; }
+    #sib-error   { font-size: 0.875rem; color: #c0392b; margin-top: 8px; display: none; }
+
+    /* TRUST STRIP */
+    .trust {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-inner {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .trust-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+      margin-bottom: 8px;
+    }
+
+    .trust-value {
+      font-size: 0.9rem;
+      color: var(--text-2);
+      line-height: 1.6;
     }
 
     /* FOOTER */
     footer {
-      background: #111;
-      border-top: 1px solid #1e1e1e;
-      padding: 56px 24px 32px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 40px;
     }
-
-    .footer-inner { max-width: 1100px; margin: 0 auto; }
 
     .footer-cols {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 40px;
+      gap: 48px;
       margin-bottom: 40px;
     }
 
-    .footer-brand-name {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+    .footer-brand .logo { margin-bottom: 12px; display: inline-block; }
 
-    .footer-dot {
-      width: 6px;
-      height: 6px;
-      background: #606060;
-      border-radius: 50%;
-    }
-
-    .footer-brand-name span {
-      font-size: 14px;
-      font-weight: 600;
-      color: #888;
-    }
-
-    .footer-disclaimer {
-      font-size: 12px;
-      color: #484848;
+    .footer-brand p {
+      font-size: 0.8rem;
+      color: var(--text-3);
       line-height: 1.65;
-      max-width: 320px;
+      max-width: 300px;
     }
 
     .footer-col h4 {
-      font-size: 12px;
-      font-weight: 600;
-      color: #606060;
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 14px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+      margin-bottom: 16px;
     }
 
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 
     .footer-col ul a {
-      font-size: 13px;
-      color: #606060;
+      font-size: 0.85rem;
+      color: var(--text-3);
       transition: color 0.15s;
     }
 
-    .footer-col ul a:hover { color: #a0a0a0; }
+    .footer-col ul a:hover { color: var(--text-2); }
 
     .footer-bottom {
       padding-top: 24px;
-      border-top: 1px solid #1e1e1e;
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      font-size: 12px;
-      color: #484848;
+      font-size: 0.78rem;
+      color: var(--text-3);
     }
 
-    .footer-bottom-links {
-      display: flex;
-      gap: 20px;
-    }
+    .footer-bottom-links { display: flex; gap: 20px; }
 
     .footer-bottom-links a {
-      font-size: 12px;
-      color: #484848;
+      font-size: 0.78rem;
+      color: var(--text-3);
       transition: color 0.15s;
     }
 
-    .footer-bottom-links a:hover { color: #808080; }
+    .footer-bottom-links a:hover { color: var(--text-2); }
 
     /* BACK TO TOP */
     #back-to-top {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: #1e1e1e;
-      border: 1px solid #2a2a2a;
-      color: #e8e8e8;
-      font-size: 18px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -567,33 +714,32 @@
       pointer-events: none;
       transition: opacity 0.2s;
       z-index: 99;
-      line-height: 1;
     }
 
     #back-to-top.visible { opacity: 1; pointer-events: auto; }
-    #back-to-top:hover { background: #282828; }
+    #back-to-top:hover { background: var(--surface); }
 
     /* RESPONSIVE */
-    @media (max-width: 800px) {
+    @media (max-width: 860px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 48px; }
+      .hero-recent { display: none; }
       .card-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-cols { grid-template-columns: 1fr 1fr; }
       .footer-cols > :first-child { grid-column: 1 / -1; }
+      .trust-inner { gap: 32px; }
     }
 
     @media (max-width: 600px) {
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
-
-      .hero { padding: 56px 20px 64px; }
-      .hero-copy h1 { font-size: 2rem; }
-      .hero-copy p { font-size: 15px; }
-
+      .hero { padding: 56px 0 48px; }
+      .hero-body h1 { font-size: 1.9rem; }
       .card-grid { grid-template-columns: 1fr; }
-      .lists-grid { grid-template-columns: 1fr; }
-      .comparisons-grid { grid-template-columns: 1fr; }
-
+      .lists-grid, .comp-grid, .tools-list { grid-template-columns: 1fr; }
       .footer-cols { grid-template-columns: 1fr; gap: 32px; }
-      .section { padding: 52px 20px; }
+      .section { padding: 48px 0; }
+      .newsletter-inner { flex-direction: column; gap: 24px; }
+      .newsletter-form input[type="email"] { width: 100%; }
     }
   </style>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","yt52m4dnf1");</script>
@@ -604,16 +750,13 @@
 <!-- NAV -->
 <nav id="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-dot"></div>
-      <span class="nav-logo-text">MyAIToolPick</span>
-    </a>
+    <a href="/" class="logo">MyAIToolPick</a>
     <ul class="nav-links">
       <li><a href="/reviews.html">Reviews</a></li>
       <li><a href="/comparisons.html">Comparisons</a></li>
       <li><a href="/best.html">Best Lists</a></li>
     </ul>
-    <a href="/best.html" class="nav-cta">Browse Picks</a>
+    <a href="/best.html" class="nav-cta">Browse picks</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -622,151 +765,166 @@
     <a href="/reviews.html">Reviews</a>
     <a href="/comparisons.html">Comparisons</a>
     <a href="/best.html">Best Lists</a>
-    <a href="/best.html">Browse Picks</a>
+    <a href="/best.html">Browse picks</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section>
-  <div class="hero">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-layout">
+      <div class="hero-body">
+        <h1>Find the right AI tool for the job.</h1>
+        <p>We test AI tools hands-on and write honest comparisons. No sponsored rankings, no paid placements. Just the information you need to pick the right tool.</p>
+        <div class="hero-ctas">
+          <a href="/find-my-ai-tool.html" class="btn-primary">Find my AI tool &rarr;</a>
+          <a href="/best.html" class="btn-ghost">See best lists</a>
+        </div>
 
-    <div class="hero-copy">
-      <h1>Find the right AI tool.</h1>
-      <p>Honest reviews and real comparisons, no hype, no paid rankings. We've tested 27+ AI tools so you don't have to.</p>
-      <div class="hero-ctas">
-        <a href="/find-my-ai-tool.html" class="btn-primary">Find my AI tool →</a>
-        <a href="/best.html" class="btn-outline">Browse Top Picks</a>
+        <div class="hero-strip">
+          <div class="hero-strip-label">Tools we have reviewed</div>
+          <div class="hero-strip-names">
+            <span>ChatGPT</span>
+            <span>Claude</span>
+            <span>Gemini</span>
+            <span>Jasper</span>
+            <span>Grammarly</span>
+            <span>Midjourney</span>
+            <span>ElevenLabs</span>
+            <span>Cursor</span>
+            <span>Windsurf</span>
+            <span>Descript</span>
+            <span>QuillBot</span>
+            <span>Perplexity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-recent">
+        <div class="hero-recent-label">Recently updated</div>
+        <a href="/reviews/windsurf.html" class="recent-item">
+          <span class="recent-name">Windsurf Review</span>
+          <span class="recent-meta">AI Coding &middot; Oct 2026</span>
+        </a>
+        <a href="/reviews/bolt.html" class="recent-item">
+          <span class="recent-name">Bolt.new Review</span>
+          <span class="recent-meta">App Builder &middot; Oct 2026</span>
+        </a>
+        <a href="/comparisons/cursor-vs-windsurf.html" class="recent-item">
+          <span class="recent-name">Cursor vs Windsurf</span>
+          <span class="recent-meta">Comparison &middot; Oct 2026</span>
+        </a>
       </div>
     </div>
-
-    <div class="logo-strip" style="width:100%">
-      <p class="logo-strip-label">Tools we've reviewed</p>
-      <div class="logo-strip-names">
-        <span>ChatGPT</span>
-        <span>Claude</span>
-        <span>Gemini</span>
-        <span>Jasper</span>
-        <span>Grammarly</span>
-        <span>Midjourney</span>
-        <span>ElevenLabs</span>
-        <span>Writesonic</span>
-        <span>Murf AI</span>
-        <span>Perplexity</span>
-        <span>Runway</span>
-        <span>Descript</span>
-        <span>Cursor</span>
-        <span>QuillBot</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- FREE TOOLS -->
-<section class="section" style="background:#161616;">
-  <div class="section-inner">
-    <div class="section-header">
-      <div>
-        <h2>Tools We Built</h2>
-        <p style="font-size:.88rem;color:#475569;margin-top:6px;font-weight:400;">Free tools made by us to help you pick, compare, and justify AI tools — not tools we review.</p>
-      </div>
+<!-- TOOLS WE BUILT -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Tools We Built</h2>
     </div>
-    <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
-      <a href="/find-my-ai-tool.html" class="tool-card">
-        <div class="tool-card-top"><span class="category-pill" style="background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);">&#9733; Made by us</span></div>
-        <h3>AI Tool Finder</h3>
-        <p>Answer 3 questions, get a personalized AI tool recommendation in seconds.</p>
-        <span class="read-link">Try it free &#8594;</span>
+    <div class="tools-list">
+      <a href="/find-my-ai-tool.html" class="tools-row">
+        <div>
+          <div class="tools-name">AI Tool Finder</div>
+          <div class="tools-desc">Answer 3 questions, get a personalized recommendation</div>
+        </div>
+        <span class="tools-arrow">&rarr;</span>
       </a>
-      <a href="/compare-ai-tools.html" class="tool-card">
-        <div class="tool-card-top"><span class="category-pill" style="background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);">&#9733; Made by us</span></div>
-        <h3>Compare AI Tools</h3>
-        <p>Pick any two tools and get a side-by-side comparison with a clear winner.</p>
-        <span class="read-link">Compare now &#8594;</span>
+      <a href="/compare-ai-tools.html" class="tools-row">
+        <div>
+          <div class="tools-name">Compare AI Tools</div>
+          <div class="tools-desc">Side-by-side comparison with a clear winner</div>
+        </div>
+        <span class="tools-arrow">&rarr;</span>
       </a>
-      <a href="/ai-tool-roi-calculator.html" class="tool-card">
-        <div class="tool-card-top"><span class="category-pill" style="background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);">&#9733; Made by us</span></div>
-        <h3>ROI Calculator</h3>
-        <p>Enter your hourly rate and find out exactly whether an AI tool pays for itself.</p>
-        <span class="read-link">Calculate ROI &#8594;</span>
+      <a href="/ai-tool-roi-calculator.html" class="tools-row">
+        <div>
+          <div class="tools-name">ROI Calculator</div>
+          <div class="tools-desc">Find out whether a tool actually pays for itself</div>
+        </div>
+        <span class="tools-arrow">&rarr;</span>
       </a>
-      <a href="/my-ai-stack.html" class="tool-card">
-        <div class="tool-card-top"><span class="category-pill" style="background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);">&#9733; Made by us</span></div>
-        <h3>AI Stack Builder</h3>
-        <p>Pick up to 4 tools, see your total monthly cost, and share your stack.</p>
-        <span class="read-link">Build your stack &#8594;</span>
+      <a href="/my-ai-stack.html" class="tools-row">
+        <div>
+          <div class="tools-name">AI Stack Builder</div>
+          <div class="tools-desc">Pick up to 4 tools, see your total monthly cost</div>
+        </div>
+        <span class="tools-arrow">&rarr;</span>
       </a>
     </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
-<section class="section reviews-section">
-  <div class="section-inner">
-    <div class="section-header">
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
       <h2>Top AI Tool Reviews</h2>
-      <a href="/reviews.html" class="view-all">View all &#8594;</a>
+      <a href="/reviews.html" class="view-all">View all reviews &rarr;</a>
     </div>
     <div class="card-grid">
 
-      <a href="/reviews/jasper.html" class="tool-card">
-        <div class="tool-card-top">
-          <span class="category-pill">Writing</span>
-          <span class="tool-score">&#9733; 4.0</span>
-        </div>
-        <h3>Jasper AI</h3>
-        <p>Built for marketing teams. Trains on your brand voice and scales long-form content with minimal editing.</p>
-        <span class="read-link">Read Review &#8594;</span>
-      </a>
-
-      <a href="/reviews/grammarly.html" class="tool-card">
-        <div class="tool-card-top">
-          <span class="category-pill">Editing</span>
-          <span class="tool-score">&#9733; 4.3</span>
-        </div>
-        <h3>Grammarly</h3>
-        <p>The gold standard for grammar and clarity. Works everywhere you type, from email to Google Docs.</p>
-        <span class="read-link">Read Review &#8594;</span>
-      </a>
-
       <a href="/reviews/chatgpt.html" class="tool-card">
-        <div class="tool-card-top">
-          <span class="category-pill">Chat AI</span>
-          <span class="tool-score">&#9733; 4.6</span>
+        <div class="card-top">
+          <span class="card-cat">AI Chat</span>
+          <span class="card-score">4.6</span>
         </div>
         <h3>ChatGPT</h3>
-        <p>The most versatile AI assistant. Handles writing, coding, research, and brainstorming with ease.</p>
-        <span class="read-link">Read Review &#8594;</span>
+        <p>The most versatile AI assistant. Handles writing, coding, research, and brainstorming. Free tier is genuinely useful.</p>
+        <span class="card-link">Read review &rarr;</span>
       </a>
 
       <a href="/reviews/claude.html" class="tool-card">
-        <div class="tool-card-top">
-          <span class="category-pill">Chat AI</span>
-          <span class="tool-score">&#9733; 4.6</span>
+        <div class="card-top">
+          <span class="card-cat">AI Chat</span>
+          <span class="card-score">4.6</span>
         </div>
         <h3>Claude</h3>
-        <p>Excels at long documents and nuanced reasoning. A top pick for anyone who needs thoughtful, careful output.</p>
-        <span class="read-link">Read Review &#8594;</span>
+        <p>Strongest on long documents and nuanced reasoning. The best choice when you need careful, thorough output.</p>
+        <span class="card-link">Read review &rarr;</span>
       </a>
 
-      <a href="/reviews/writesonic.html" class="tool-card">
-        <div class="tool-card-top">
-          <span class="category-pill">Writing</span>
-          <span class="tool-score">&#9733; 3.7</span>
+      <a href="/reviews/elevenlabs.html" class="tool-card">
+        <div class="card-top">
+          <span class="card-cat">Voice AI</span>
+          <span class="card-score">4.7</span>
         </div>
-        <h3>Writesonic</h3>
-        <p>Fast content creation for blogs, ads, and product pages. Good value for freelancers and small teams.</p>
-        <span class="read-link">Read Review &#8594;</span>
+        <h3>ElevenLabs</h3>
+        <p>The clearest AI voice generation available. Clones voices from a short sample and sounds indistinguishable from real speech.</p>
+        <span class="card-link">Read review &rarr;</span>
       </a>
 
-      <a href="/reviews/surfer-seo.html" class="tool-card">
-        <div class="tool-card-top">
-          <span class="category-pill">SEO</span>
-          <span class="tool-score">&#9733; 3.9</span>
+      <a href="/reviews/cursor.html" class="tool-card">
+        <div class="card-top">
+          <span class="card-cat">Coding</span>
+          <span class="card-score">4.5</span>
         </div>
-        <h3>Surfer SEO</h3>
-        <p>Data-driven on-page optimization. Tells you exactly what to include to rank, backed by SERP analysis.</p>
-        <span class="read-link">Read Review &#8594;</span>
+        <h3>Cursor</h3>
+        <p>VS Code fork with AI built into the editor. Multi-file edits and project-wide context are genuinely better than any extension.</p>
+        <span class="card-link">Read review &rarr;</span>
+      </a>
+
+      <a href="/reviews/midjourney.html" class="tool-card">
+        <div class="card-top">
+          <span class="card-cat">Image AI</span>
+          <span class="card-score">4.3</span>
+        </div>
+        <h3>Midjourney</h3>
+        <p>Best image quality of any AI generator. No free tier, but the output is consistently better than the alternatives.</p>
+        <span class="card-link">Read review &rarr;</span>
+      </a>
+
+      <a href="/reviews/jasper.html" class="tool-card">
+        <div class="card-top">
+          <span class="card-cat">Writing</span>
+          <span class="card-score">4.0</span>
+        </div>
+        <h3>Jasper AI</h3>
+        <p>Built for marketing teams. Trains on your brand voice and outputs long-form content at scale.</p>
+        <span class="card-link">Read review &rarr;</span>
       </a>
 
     </div>
@@ -774,68 +932,68 @@
 </section>
 
 <!-- BEST LISTS -->
-<section class="section lists-section">
-  <div class="section-inner">
-    <div class="section-header">
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
       <h2>Best AI Tools By Category</h2>
-      <a href="/best.html" class="view-all">View all &#8594;</a>
+      <a href="/best.html" class="view-all">View all lists &rarr;</a>
     </div>
     <div class="lists-grid">
 
       <a href="/best/ai-writing-tools.html" class="list-row">
         <div>
-          <div class="list-row-title">Best AI Writing Tools</div>
-          <div class="list-row-desc">Top picks for content, copywriting, and blogs</div>
+          <div class="list-title">Best AI Writing Tools</div>
+          <div class="list-desc">Top picks for content, copywriting, and blogs</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
       <a href="/best/ai-for-students.html" class="list-row">
         <div>
-          <div class="list-row-title">Best AI for Students</div>
-          <div class="list-row-desc">Research, essays, and studying smarter</div>
+          <div class="list-title">Best AI for Students</div>
+          <div class="list-desc">Research, essays, and studying more effectively</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
       <a href="/best/ai-for-business.html" class="list-row">
         <div>
-          <div class="list-row-title">Best AI for Business</div>
-          <div class="list-row-desc">Productivity, automation, and team tools</div>
+          <div class="list-title">Best AI for Business</div>
+          <div class="list-desc">Productivity, automation, and team collaboration</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
       <a href="/best/free-ai-tools.html" class="list-row">
         <div>
-          <div class="list-row-title">Best Free AI Tools</div>
-          <div class="list-row-desc">No credit card needed, real value included</div>
+          <div class="list-title">Best Free AI Tools</div>
+          <div class="list-desc">No credit card required, real value included</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
       <a href="/best/ai-video-tools.html" class="list-row">
         <div>
-          <div class="list-row-title">Best AI Video Tools</div>
-          <div class="list-row-desc">Generate, edit, and repurpose video with AI</div>
+          <div class="list-title">Best AI Video Tools</div>
+          <div class="list-desc">Generate, edit, and repurpose video with AI</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
-      <a href="/best/ai-image-generators.html" class="list-row">
+      <a href="/best/ai-for-coding.html" class="list-row">
         <div>
-          <div class="list-row-title">Best AI Image Generators</div>
-          <div class="list-row-desc">From concept to polished image in seconds</div>
+          <div class="list-title">Best AI Coding Tools</div>
+          <div class="list-desc">From autocomplete to full IDE replacements</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
       <a href="/best/best-ai-tools-2026.html" class="list-row">
         <div>
-          <div class="list-row-title">Best AI Tools of 2026</div>
-          <div class="list-row-desc">Top 17 across every category, tested and ranked</div>
+          <div class="list-title">Best AI Tools of 2026</div>
+          <div class="list-desc">Top 17 across every category, tested and ranked</div>
         </div>
-        <span class="list-row-arrow">&#8594;</span>
+        <span class="list-arrow">&rarr;</span>
       </a>
 
     </div>
@@ -843,98 +1001,119 @@
 </section>
 
 <!-- COMPARISONS -->
-<section class="section comparisons-section">
-  <div class="section-inner">
-    <div class="section-header">
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
       <h2>AI Tool Comparisons</h2>
-      <a href="/comparisons.html" class="view-all">View all &#8594;</a>
+      <a href="/comparisons.html" class="view-all">View all comparisons &rarr;</a>
     </div>
-    <div class="comparisons-grid">
+    <div class="comp-grid">
 
-      <a href="/comparisons/claude-vs-chatgpt.html" class="comparison-row">
-        <div class="comparison-names">
-          <span class="comparison-name">Claude</span>
-          <span class="comparison-vs">vs</span>
-          <span class="comparison-name">ChatGPT</span>
+      <a href="/comparisons/claude-vs-chatgpt.html" class="comp-row">
+        <div class="comp-names">
+          <span class="comp-a">Claude</span>
+          <span class="comp-vs">vs</span>
+          <span class="comp-b">ChatGPT</span>
         </div>
-        <span class="comparison-row-arrow">&#8594;</span>
+        <span class="comp-arrow">&rarr;</span>
       </a>
 
-      <a href="/comparisons/chatgpt-vs-gemini.html" class="comparison-row">
-        <div class="comparison-names">
-          <span class="comparison-name">ChatGPT</span>
-          <span class="comparison-vs">vs</span>
-          <span class="comparison-name">Gemini</span>
+      <a href="/comparisons/cursor-vs-windsurf.html" class="comp-row">
+        <div class="comp-names">
+          <span class="comp-a">Cursor</span>
+          <span class="comp-vs">vs</span>
+          <span class="comp-b">Windsurf</span>
         </div>
-        <span class="comparison-row-arrow">&#8594;</span>
+        <span class="comp-arrow">&rarr;</span>
       </a>
 
-      <a href="/comparisons/jasper-vs-writesonic.html" class="comparison-row">
-        <div class="comparison-names">
-          <span class="comparison-name">Jasper</span>
-          <span class="comparison-vs">vs</span>
-          <span class="comparison-name">Writesonic</span>
+      <a href="/comparisons/chatgpt-vs-gemini.html" class="comp-row">
+        <div class="comp-names">
+          <span class="comp-a">ChatGPT</span>
+          <span class="comp-vs">vs</span>
+          <span class="comp-b">Gemini</span>
         </div>
-        <span class="comparison-row-arrow">&#8594;</span>
+        <span class="comp-arrow">&rarr;</span>
       </a>
 
-      <a href="/comparisons/grammarly-vs-quillbot.html" class="comparison-row">
-        <div class="comparison-names">
-          <span class="comparison-name">Grammarly</span>
-          <span class="comparison-vs">vs</span>
-          <span class="comparison-name">QuillBot</span>
+      <a href="/comparisons/grammarly-vs-quillbot.html" class="comp-row">
+        <div class="comp-names">
+          <span class="comp-a">Grammarly</span>
+          <span class="comp-vs">vs</span>
+          <span class="comp-b">QuillBot</span>
         </div>
-        <span class="comparison-row-arrow">&#8594;</span>
+        <span class="comp-arrow">&rarr;</span>
       </a>
 
-      <a href="/comparisons/chatgpt-vs-grok.html" class="comparison-row">
-        <div class="comparison-names">
-          <span class="comparison-name">ChatGPT</span>
-          <span class="comparison-vs">vs</span>
-          <span class="comparison-name">Grok</span>
+      <a href="/comparisons/jasper-vs-writesonic.html" class="comp-row">
+        <div class="comp-names">
+          <span class="comp-a">Jasper</span>
+          <span class="comp-vs">vs</span>
+          <span class="comp-b">Writesonic</span>
         </div>
-        <span class="comparison-row-arrow">&#8594;</span>
+        <span class="comp-arrow">&rarr;</span>
       </a>
 
-      <a href="/comparisons/notion-vs-chatgpt.html" class="comparison-row">
-        <div class="comparison-names">
-          <span class="comparison-name">Notion AI</span>
-          <span class="comparison-vs">vs</span>
-          <span class="comparison-name">ChatGPT</span>
+      <a href="/comparisons/elevenlabs-vs-murf.html" class="comp-row">
+        <div class="comp-names">
+          <span class="comp-a">ElevenLabs</span>
+          <span class="comp-vs">vs</span>
+          <span class="comp-b">Murf AI</span>
         </div>
-        <span class="comparison-row-arrow">&#8594;</span>
+        <span class="comp-arrow">&rarr;</span>
       </a>
 
     </div>
   </div>
 </section>
 
-<!-- Newsletter -->
-<div style="max-width:600px;margin:64px auto 0;padding:0 24px 64px;text-align:center;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:40px 32px;">
-    <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#64748b;margin-bottom:12px;">Free Weekly Newsletter</p>
-    <h3 style="font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-.3px;margin-bottom:10px;">Get the weekly AI tool pick</h3>
-    <p style="font-size:.88rem;color:#64748b;margin-bottom:28px;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.6;">One tool, one use case, every week. Free. No spam.</p>
-    <div id="sib-success" style="display:none;background:rgba(19,206,102,.08);border:1px solid rgba(19,206,102,.3);border-radius:8px;padding:12px 16px;font-size:.88rem;color:#13ce66;margin-bottom:16px;">You are in. Check your inbox.</div>
-    <div id="sib-error" style="display:none;background:rgba(255,73,73,.08);border:1px solid rgba(255,73,73,.3);border-radius:8px;padding:12px 16px;font-size:.88rem;color:#ff4949;margin-bottom:16px;">Something went wrong. Please try again.</div>
-    <form style="display:flex;gap:10px;max-width:380px;margin:0 auto;flex-wrap:wrap;" onsubmit="submitBrevo(event,this)">
-      <input type="email" name="EMAIL" placeholder="your@email.com" required style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:11px 14px;color:#fff;font-size:.88rem;font-family:inherit;outline:none;" />
-      <button type="submit" style="background:#d0d0d0;color:#111;font-weight:700;font-size:.85rem;padding:11px 20px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;font-family:inherit;">Subscribe &rarr;</button>
-    </form>
-    <p style="font-size:.72rem;color:#475569;margin-top:14px;">No spam. Unsubscribe anytime.</p>
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="wrap">
+    <div class="newsletter-inner">
+      <div class="newsletter-copy">
+        <h3>Get the weekly AI tool pick</h3>
+        <p>One tool, one use case, every week. Free, no spam.</p>
+      </div>
+      <div>
+        <form class="newsletter-form" onsubmit="submitBrevo(event,this)">
+          <input type="email" name="EMAIL" placeholder="your@email.com" required />
+          <button type="submit">Subscribe &rarr;</button>
+        </form>
+        <div id="sib-success">You are in. Check your inbox.</div>
+        <div id="sib-error">Something went wrong. Please try again.</div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-label">How we work</div>
+        <div class="trust-value">Each tool is tested hands-on before we write about it. We use the product, not the marketing page.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-label">On rankings</div>
+        <div class="trust-value">No tool pays to appear here. Scores are based on our testing criteria, not commercial relationships.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-label">On affiliate links</div>
+        <div class="trust-value">We earn a commission on some links. This does not influence which tools we recommend or how we score them.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
+  <div class="wrap">
     <div class="footer-cols">
-      <div>
-        <div class="footer-brand-name">
-          <div class="footer-dot"></div>
-          <span>MyAIToolPick</span>
-        </div>
-        <p class="footer-disclaimer">Independent reviews of AI tools. We may earn a commission if you purchase through our links, at no extra cost to you. Rankings are based on our own testing and research, not paid placements.</p>
+      <div class="footer-brand">
+        <a href="/" class="logo">MyAIToolPick</a>
+        <p>Independent reviews of AI tools. We test hands-on and write honest comparisons. We may earn a commission from some links at no cost to you.</p>
       </div>
       <div class="footer-col">
         <h4>Content</h4>
@@ -974,47 +1153,43 @@
 <button id="back-to-top" aria-label="Back to top">&#8593;</button>
 
 <!-- COOKIE BANNER -->
-<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:1px solid #282828;padding:20px 24px;z-index:9999;">
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A1A;border-top:1px solid #2E2E2E;padding:20px 24px;z-index:9999;">
   <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
     <div style="flex:1;min-width:260px;">
-      <p style="color:#e0e0e0;font-size:0.875rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
-      <p style="color:#606060;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#a0a0a0;">Cookie Policy</a> and <a href="/privacy.html" style="color:#a0a0a0;">Privacy Policy</a>.</p>
+      <p style="color:#EFEFEF;font-size:0.875rem;margin:0 0 4px;font-weight:600;">We use cookies</p>
+      <p style="color:#888;font-size:0.8rem;margin:0;">We use analytics and affiliate tracking cookies. See our <a href="/cookie-policy.html" style="color:#AAAAAA;">Cookie Policy</a> and <a href="/privacy.html" style="color:#AAAAAA;">Privacy Policy</a>.</p>
     </div>
     <div style="display:flex;gap:10px;flex-shrink:0;">
-      <button onclick="declineCookies()" style="background:transparent;border:1px solid #2a2a2a;color:#606060;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:6px;cursor:pointer;">Decline</button>
-      <button onclick="acceptCookies()" style="background:#e8e8e8;border:none;color:#111;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:6px;cursor:pointer;">Accept All</button>
+      <button onclick="declineCookies()" style="background:transparent;border:1px solid #2E2E2E;color:#888;font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:6px;cursor:pointer;font-family:inherit;">Decline</button>
+      <button onclick="acceptCookies()" style="background:#EFEFEF;border:none;color:#111;font-size:0.85rem;font-weight:700;padding:9px 18px;border-radius:6px;cursor:pointer;font-family:inherit;">Accept All</button>
     </div>
   </div>
 </div>
 
 <script>
-  // Mobile nav toggle
+  // Mobile nav
   const hamburger = document.getElementById('hamburger');
   const navMobile = document.getElementById('nav-mobile');
   hamburger.addEventListener('click', () => {
     const open = navMobile.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', open);
   });
-  navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navMobile.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', false);
-    });
-  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMobile.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', false);
+  }));
 
   // Back to top
   const btt = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => {
-    btt.classList.toggle('visible', window.scrollY > 400);
-  }, { passive: true });
+  window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 400), { passive: true });
   btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // Active nav
+  // Active nav link
   (function() {
     const path = location.pathname.replace(/\/$/, '') || '/';
     document.querySelectorAll('.nav-links a').forEach(a => {
       const href = new URL(a.href).pathname.replace(/\/$/, '');
-      if (href !== '/' && path.startsWith(href)) a.style.color = '#e0e0e0';
+      if (href !== '/' && path.startsWith(href)) a.style.color = '#EFEFEF';
     });
   })();
 
@@ -1028,7 +1203,7 @@
   window.addEventListener('DOMContentLoaded',function(){var c=getCookie('cookie_consent');if(!c)document.getElementById('cookie-banner').style.display='block';else if(c==='accepted')loadAnalytics();});
 </script>
 
-  <script>
+<script>
   function submitBrevo(e, form) {
     e.preventDefault();
     var email = form.querySelector('[name="EMAIL"]').value;
@@ -1046,6 +1221,6 @@
         document.getElementById('sib-error').style.display='block';
       });
   }
-  </script>
+</script>
 </body>
 </html>
